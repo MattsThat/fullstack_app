@@ -17,8 +17,9 @@ const BillingInfo = new Schema(
     refund: Boolean,
     billigdate: Date
   },
-  { timestamps: true }
+  { timestamps: true },
+  // { collection: 'BillingInfo' }
 );
 
 // export the new Schema so we could modify it using Node.js
-module.exports = mongoose.model("Data", BillingInfo);
+module.exports = mongoose.model("BillingInfo", BillingInfo,"BillingInfo");

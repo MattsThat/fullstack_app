@@ -5,7 +5,7 @@ import App from './../App';
 import Login from './../Login/Login';
 import NotFoundPage from './../notfound';
 import LoginEmail from './../Login/Loginemail';
-import GoogleLogin from './../Login/googlelogin';
+// import GoogleLogin from './../Login/googlelogin';
 import Dashboard from './../Dashboard/Dashboard';
 import Home from './../Home/Home';
 

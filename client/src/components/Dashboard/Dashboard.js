@@ -122,8 +122,7 @@ class Dashboard extends React.Component {
         <div className={classes.root}>
           <AppBar
             position="absolute"
-            className={classNames(classes.appBar, this.state.open && classes.appBarShift)}
-          >
+            className={classNames(classes.appBar, this.state.open && classes.appBarShift)}>
             <Toolbar disableGutters={!this.state.open} className={classes.toolbar}>
               <IconButton
                 color="inherit"
@@ -131,9 +130,7 @@ class Dashboard extends React.Component {
                 onClick={this.handleDrawerOpen}
                 className={classNames(
                   classes.menuButton,
-                  this.state.open && classes.menuButtonHidden,
-                )}
-              >
+                  this.state.open && classes.menuButtonHidden,)}>
               <MenuIcon />
               </IconButton>
               <Typography
@@ -141,8 +138,7 @@ class Dashboard extends React.Component {
                 variant="h6"
                 color="inherit"
                 noWrap
-                className={classes.title}
-              >
+                className={classes.title}>
                 Dashboard
               </Typography>
               <IconButton color="inherit">
@@ -171,7 +167,7 @@ class Dashboard extends React.Component {
           </Drawer>
            </div>
 
-          <Card/>
+          {/* <Card/>
           <main className={classes.content}>
             <div className={classes.appBarSpacer} />
             <Typography variant="h4" gutterBottom component="h2">
@@ -185,7 +181,7 @@ class Dashboard extends React.Component {
             <div className={classes.tableContainer}>
               <SimpleTable />
             </div>
-          </main>
+          </main> */}
 
       </React.Fragment>
     );

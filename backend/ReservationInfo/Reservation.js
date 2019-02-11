@@ -20,4 +20,4 @@ const Reservation = new Schema(
 );
 
 // export the new Schema so we could modify it using Node.js
-module.exports = mongoose.model("Data", Reservation);
+module.exports = mongoose.model("Reservation", Reservation,"Reservation");

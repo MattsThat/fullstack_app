@@ -33,4 +33,4 @@ const SportsCenterInfo = new Schema(
 );
 
 // export the new Schema so we could modify it using Node.js
-module.exports = mongoose.model("Data", SportsCenterInfo);
+module.exports = mongoose.model("SportsCenterInfo", SportsCenterInfo,"SportsCenterInfo");

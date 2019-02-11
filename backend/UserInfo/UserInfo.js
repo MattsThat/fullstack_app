@@ -25,4 +25,4 @@ const UserInfo = new Schema(
 );
 
 // export the new Schema so we could modify it using Node.js
-module.exports = mongoose.model("Data", UserInfo);
+module.exports = mongoose.model("UserInfo", UserInfo,"UserInfo");

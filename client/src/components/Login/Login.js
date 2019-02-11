@@ -9,6 +9,7 @@ import { withRouter } from 'react-router-dom';
 
 
 class Login extends React.Component {
+    
     constructor(props){
         super(props);
         this.state = {
@@ -17,6 +18,7 @@ class Login extends React.Component {
           error: null
         }; //end of setState
         //console.log('inLogin state constructor',this.state.showModal);
+
     }//end of constructor
 
   componentWillUpdate(props,state){
@@ -29,8 +31,8 @@ class Login extends React.Component {
   // then we incorporate a polling logic so that we can easily see if our db has 
   // changed and implement those changes into our UI
   componentDidMount() {
-
-    this.getDataFromDb();
+    console.log('componentDidMount');
+    //  this.getDataFromDb();
     if (!this.state.intervalIsSet) {
       //let interval = setInterval(this.getDataFromDb, 1000);
       //this.setState({ intervalIsSet: interval });
@@ -39,7 +41,6 @@ class Login extends React.Component {
   // never let a process live forever 
   // always kill a process everytime we are done using it
   componentWillUnmount() {
- 
     if (this.state.intervalIsSet) {
       clearInterval(this.state.intervalIsSet);
       this.setState({ intervalIsSet: null });
@@ -49,7 +50,6 @@ class Login extends React.Component {
   // in order to identify which we want to Update or delete.
   // for our back end, we use the object id assigned by MongoDB to modify 
   // data base entries
-
    sendEmail(email){
     console.log('mail start'+email);
     axios.get(`/sendemail`, {
@@ -59,26 +59,12 @@ class Login extends React.Component {
     })
     .then(function (response) {
       console.log(response);
-      //onLoginSuccess('form');
     })
     .catch(function (error) {
       console.log(error);
-      //onLoginFail('form',error);
     });  
     console.log('mail done');
-
   }//end of sendEmail
-
-  // our first get method that uses our backend api to 
-  // fetch data from our data base
-    getDataFromDb(){
-      fetch(`/getLoginDetails`)
-      .then(data => data.json())
-      .then(res => this.setState({ data: res.data }));
-      // .catch(function(error){
-      //   console.log(error);
-      // });
-    }
 
     // this method will check the valid login attempt
     selectDataFromDB(username, password, props){
@@ -95,30 +81,34 @@ class Login extends React.Component {
         if(validLogin)
           props.history.push('/dashboard');
         else
-          props.history.push('/email');
+          props.history.push('/invalidlogin');
       })
       .catch(function (error) {
         console.log(error);
       });  
-      console.log('done');
-    }
+    }//end of selectDataFromDB
     
-    putDataToDB(nickname, username, password){
-      console.log('in putdatadb');
-      let currentIds = this.state.data.map(data => data.id);
-  
-      let idToBeAdded = 0;
-      while (currentIds.includes(idToBeAdded)) {
-        ++idToBeAdded;
-      }
-      axios.post(`/putLoginDetails`, {
-        id: idToBeAdded,
-        nickname: nickname,
-        username: username,
-        password: password
+    putDataToDB(nickname, username, password,props){
+      let idToBeAdded= 0;
+      axios.get(`/getLoginDetails`)
+      .then(function (res) { 
+        // console.log('in putDataToDB',res.data);
+         idToBeAdded= res.data.data.length;
+        //  console.log('in putDataToDB idToBeAdded',idToBeAdded);
+         let hostsignup = props.hostsignup;
+        //  console.log('hostsignup',hostsignup);
+           axios.post(`/putLoginDetails`, {
+             id: parseInt(idToBeAdded, 10),
+             host: hostsignup,
+             nickname: nickname,
+             username: username,
+             password: password
+           });
+      })
+      .catch(function(error){
+        console.log(error);
       });
-      // console.log('done');
-    }
+    }//end of putDataToDB
 
     onLogin() {
         console.log('__onLogin__');
@@ -140,20 +130,21 @@ class Login extends React.Component {
     
     onRegister() {
         console.log('__onRegister__');
-        console.log('login: ' + document.querySelector('#login').value);
+        console.log('nickname: ' + document.querySelector('#login').value);
         console.log('email: ' + document.querySelector('#email').value);
         console.log('password: ' + document.querySelector('#password').value);
     
-        const login = document.querySelector('#login').value; // nickname
+        const nickname = document.querySelector('#login').value; // nickname
         const email = document.querySelector('#email').value;
         const password = document.querySelector('#password').value;
     
-        if (!login || !email || !password) {
+        if (!nickname || !email || !password) {
           this.setState({
             error: true
           })
         } else {
-          this.putDataToDB(login,email,password);
+          console.log('__onRegister__this.props',this.props);
+          this.putDataToDB(nickname,email,password,this.props);
           this.closeModal();
           this.props.history.push('/dashboard');
         }
@@ -196,7 +187,6 @@ class Login extends React.Component {
     }
     onAfterCloseModal(){
       console.log('on after close modal');
-      
     }
 
     onLoginSuccess(method){

@@ -14,7 +14,6 @@ const router = express.Router();
 // this is our MongoDB database
 //const dbRoute = "mongodb://jelo:a9bc839993@ds151382.mlab.com:51382/jelotest";
 const dbRoute = "mongodb://sysadmin:sysadmin123@ds123664.mlab.com:23664/reserve";
-
 // connects our back end code with the database
 mongoose.connect(
   dbRoute,
@@ -22,18 +21,18 @@ mongoose.connect(
 );
 
 let db = mongoose.connection;
-
 db.once("open", () => console.log("connected to the database"));
-
 // checks if connection with the database is successful
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
-
 // (optional) only made for logging and
 // bodyParser, parses the request body to be a readable json format
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(logger("dev"));
 app.use(cors());
+
+// append /api for our http requests
+app.use("/api", router);
 
 // this is our get method
 // this method fetches all available data in our database
@@ -53,6 +52,7 @@ router.post("/updateLoginDetails", (req, res) => {
     return res.json({ success: true });
   });
 });
+
 // this is our delete method
 // this method removes existing data in our database
 router.delete("/deleteLoginDetails", (req, res) => {
@@ -71,6 +71,7 @@ router.get("/selectLoginDetails", (req, res) => {
     if (err) 
       return res.send(err);
     else{
+      // console.log("Mdata", data);
       let pwd = data.password;
       if(password === pwd){
         return res.json({ success: true, data:data });
@@ -82,11 +83,11 @@ router.get("/selectLoginDetails", (req, res) => {
   });
 });
 
-// this is our create methid
-// this method adds new data in our database
+
+// this method adds new host and individual data in our database
 router.post("/putLoginDetails", (req, res) => {
   let data = new LoginDetails();
-  const { id, nickname, username, password } = req.body;
+  const { id, host, nickname, username, password } = req.body;
 
   if ((!id && id !== 0) || !username) {
     return res.json({
@@ -95,6 +96,7 @@ router.post("/putLoginDetails", (req, res) => {
     });
   }
   data.id = id;
+  data.host = host;
   data.nickname = nickname;
   data.username = username;
   data.password = password;
@@ -103,6 +105,8 @@ router.post("/putLoginDetails", (req, res) => {
     return res.json({ success: true });
   });
 });
+
+
 
 router.get("/sendemail",(req, res) => {
   const email  = req.query.email;
@@ -131,9 +135,5 @@ router.get("/sendemail",(req, res) => {
       console.log(info.messageId);
   });
 });//end of sendEmail
-
-// append /api for our http requests
-app.use("/api", router);
-
 // launch our backend into a port
 app.listen(API_PORT, () => console.log(`LISTENING ON PORT ${API_PORT}`));

@@ -17,4 +17,4 @@ const PaymentInfo = new Schema(
 );
 
 // export the new Schema so we could modify it using Node.js
-module.exports = mongoose.model("Data", PaymentInfo);
+module.exports = mongoose.model("PaymentInfo", PaymentInfo,"PaymentInfo");

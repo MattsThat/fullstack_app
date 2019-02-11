@@ -6,9 +6,9 @@ var webpack = require('webpack');
 module.exports = {
   context: path.join(__dirname, './'),
   mode: 'development',
-  entry: ['babel-polyfill','./client/src/static/index.html', './client/src/index.js','./client/src/components/Header/MenuNavigation.js'],
+  entry: ['babel-polyfill','./client/src/static/index.html', './client/src/index.js'],
+  //entry: ['babel-polyfill','./client/src/static/index.html', './client/src/index.js','./client/src/components/Header/MenuNavigation.js'],
   //entry: ['babel-polyfill','./client/src/static/index.html'],
-  //entry: ['./static/index.html'],
   performance: {
     maxEntrypointSize: 5120000,
     maxAssetSize: 5120000
