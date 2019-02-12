@@ -4,7 +4,8 @@ const bodyParser = require("body-parser");
 const logger = require("morgan");
 const LoginDetails = require("./LoginInfo/LoginDetails");
 const cors = require("cors"); 
-const mailer = require("nodemailer"); 
+const mailer = require("nodemailer");
+const bcrypt = require('bcrypt');
 
 
 const API_PORT = 3001;
@@ -71,9 +72,8 @@ router.get("/selectLoginDetails", (req, res) => {
     if (err) 
       return res.send(err);
     else{
-      // console.log("Mdata", data);
-      let pwd = data.password;
-      if(password === pwd){
+      let valid = bcrypt.compareSync(password, data.password); // true
+      if(valid){
         return res.json({ success: true, data:data });
       }//end of if
       else{
@@ -88,25 +88,25 @@ router.get("/selectLoginDetails", (req, res) => {
 router.post("/putLoginDetails", (req, res) => {
   let data = new LoginDetails();
   const { id, host, nickname, username, password } = req.body;
-
+  const saltRounds=10;
   if ((!id && id !== 0) || !username) {
     return res.json({
       success: false,
       error: "INVALID INPUTS"
     });
   }
-  data.id = id;
-  data.host = host;
-  data.nickname = nickname;
-  data.username = username;
-  data.password = password;
-  data.save(err => {
-    if (err) return res.json({ success: false, error: err });
-    return res.json({ success: true });
-  });
+    let hashedPassword=bcrypt.hashSync(password, saltRounds);
+    data.id = id;
+    data.host = host;
+    data.nickname = nickname;
+    data.username = username;
+    data.password = hashedPassword;
+    data.save(err => {
+      if (err) return res.json({ success: false, error: err });
+      return res.json({ success: true });
+      } 
+    );//end of save
 });
-
-
 
 router.get("/sendemail",(req, res) => {
   const email  = req.query.email;
