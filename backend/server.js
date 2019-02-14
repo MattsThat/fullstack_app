@@ -6,7 +6,9 @@ const LoginDetails = require("./LoginInfo/LoginDetails");
 const cors = require("cors"); 
 const mailer = require("nodemailer");
 const bcrypt = require('bcrypt');
-
+const jwt = require('jsonwebtoken');
+const cookieParser = require('cookie-parser');
+const withAuth = require('./middleware');
 
 const API_PORT = 3001;
 const app = express();
@@ -31,13 +33,17 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(logger("dev"));
 app.use(cors());
+app.use(cookieParser());
+app.get('/api/secret', withAuth, function(req, res) {
+  res.send('The password is potato');
+});
 
 // append /api for our http requests
 app.use("/api", router);
 
 // this is our get method
 // this method fetches all available data in our database
-router.get("/getLoginDetails", (req, res) => {
+router.get("/getLoginDetails", withAuth, (req, res) => {
   LoginDetails.find((err, data) => {
     if (err) return res.json({ success: false, error: err });
     return res.json({ success: true, data: data });
@@ -63,18 +69,31 @@ router.delete("/deleteLoginDetails", (req, res) => {
     return res.json({ success: true });
   });
 });
-// this is our select method
+// this is our select method //withAuth,
 // this method selects existing data from our database
 router.get("/selectLoginDetails", (req, res) => {
   const username  = req.query.username;
   const password  = req.query.password;
+  const secret = "itsmevik";
   LoginDetails.findOne({'username' : username}, function(err,data) {
-    if (err) 
+    if (err) {
+      // console.log('findOne',err);
       return res.send(err);
+    }
     else{
       let valid = bcrypt.compareSync(password, data.password); // true
+      // console.log('valid',valid);
       if(valid){
-        return res.json({ success: true, data:data });
+          // Issue token
+          const payload = { username };
+          const token = jwt.sign(payload, secret, {
+            expiresIn: '1h'
+          });
+          // console.log('token',token);
+          res.cookie('token', token, { httpOnly: true })
+          // console.log('res',res);
+          // console.log('data',data);
+        return res.json({ success: true, data:data }); 
       }//end of if
       else{
         return res.json({ success: false, data:data });

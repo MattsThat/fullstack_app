@@ -69,22 +69,29 @@ class Login extends React.Component {
     // this method will check the valid login attempt
     selectDataFromDB(username, password, props){
       let validLogin = null;
+      console.log('1111=',validLogin);
       axios.get(`/selectLoginDetails`, {
         params: {
           username: username,
           password: password
+        },
+        method: 'POST',
+        //body: JSON.stringify(this.state),
+        body: JSON.stringify({username,password}),
+        headers: {
+          'Content-Type': 'application/json'
         }
       })
       .then(function (response){
         validLogin = response.data.success;
-        // console.log('successful=',validLogin);
+        console.log('successful=',validLogin);
         if(validLogin)
           props.history.push('/dashboard');
         else
           props.history.push('/invalidlogin');
       })
       .catch(function (error) {
-        console.log(error);
+        console.log('error',error);
       });  
     }//end of selectDataFromDB
     
