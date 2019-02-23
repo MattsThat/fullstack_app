@@ -43,6 +43,7 @@ app.use(cookieParser());
 app.use("/api", router);
 
 
+router.get("/goToHome", withAuth, (req, res) => {
   // LoginDetails.find((err, data) => {
   //   if (err) return res.json({ success: false, error: err });
   //   return res.json({ success: true, data: data });
