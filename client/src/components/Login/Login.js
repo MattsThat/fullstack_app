@@ -3,13 +3,11 @@ import axios from "axios";
 import React from 'react';
 import ReactModalLogin from 'react-modal-login';
 import { facebookConfig, googleConfig } from './Social-config.js';
-//import Home from './../Home/Home';
 import { withRouter } from 'react-router-dom';
-//import Dashboard from './Dashboard/Dashboard';
-
+import Auth from "./AuthHelperMethods";
 
 class Login extends React.Component {
-    
+
     constructor(props){
         super(props);
         this.state = {
@@ -17,6 +15,7 @@ class Login extends React.Component {
           loading: false,
           error: null
         }; //end of setState
+        
         //console.log('inLogin state constructor',this.state.showModal);
 
     }//end of constructor
@@ -69,13 +68,15 @@ class Login extends React.Component {
     // this method will check the valid login attempt
     selectDataFromDB(username, password, props){
       let validLogin = null;
-      console.log('1111=',validLogin);
+      //Auth = new AuthHelperMethods();
+      //console.log('1111=',validLogin);
       axios.get(`/selectLoginDetails`, {
         params: {
           username: username,
           password: password
         },
         method: 'POST',
+        credentials: 'same-origin',
         //body: JSON.stringify(this.state),
         body: JSON.stringify({username,password}),
         headers: {
@@ -84,11 +85,17 @@ class Login extends React.Component {
       })
       .then(function (response){
         validLogin = response.data.success;
-        console.log('successful=',validLogin);
-        if(validLogin)
+        console.log('response=',response);
+        console.log('response headers=',response.headers["Set-Cookie"]);
+        //console.log('request cookies=',request.cookies);
+        //Set-Cookie: token=
+        if(validLogin){
+          // Auth.setToken(response.data.token);
           props.history.push('/dashboard');
-        else
+        }
+        else{
           props.history.push('/invalidlogin');
+        }
       })
       .catch(function (error) {
         console.log('error',error);

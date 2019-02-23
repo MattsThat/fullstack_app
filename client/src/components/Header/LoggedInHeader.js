@@ -4,6 +4,8 @@ import {  Link, NavLink } from 'react-router-dom';
 //import styles from './Header.css';
 import Button from '@material-ui/core/Button';
 import Login from './../Login/Login';
+import axios from "axios";
+
 
 class LoggedInHeader extends React.Component {
 
@@ -54,6 +56,23 @@ bookaplace(params) {
 
 search(params) {
     alert('here search');
+}
+
+goToHome(props){
+    console.log('mgoToHome');
+    axios.get(`/goToHome`, {
+    //   params: {
+    //     loggedin: true,
+    //   }
+    })
+    .then(function (response) {
+      console.log(response);
+      props.history.push('/');
+    })
+    .catch(function (error) {
+      console.log(error);
+    });  
+    console.log('goToHome');
 }
 
 render() {
@@ -117,7 +136,7 @@ render() {
     <div class="p-2 flex-grow-1 bd-highlight">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
         <li class="nav-item">
-            <Link to='/'>
+            <Link to='/' onClick={this.goToHome(this.props)}>
                 Life is Sports!!
             </Link>
         </li>

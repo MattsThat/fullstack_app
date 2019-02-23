@@ -34,12 +34,21 @@ app.use(bodyParser.json());
 app.use(logger("dev"));
 app.use(cors());
 app.use(cookieParser());
-app.get('/api/secret', withAuth, function(req, res) {
-  res.send('The password is potato');
-});
+
+// app.get('/api/secret', withAuth, function(req, res) {
+//   res.send('The password is potato');
+// });
 
 // append /api for our http requests
 app.use("/api", router);
+
+
+  // LoginDetails.find((err, data) => {
+  //   if (err) return res.json({ success: false, error: err });
+  //   return res.json({ success: true, data: data });
+  // });
+  return res.json({success : true});
+});
 
 // this is our get method
 // this method fetches all available data in our database
@@ -90,6 +99,7 @@ router.get("/selectLoginDetails", (req, res) => {
             expiresIn: '1h'
           });
           // console.log('token',token);
+          // res.cookie('token', token)
           res.cookie('token', token, { httpOnly: true })
           // console.log('res',res);
           // console.log('data',data);
@@ -101,7 +111,6 @@ router.get("/selectLoginDetails", (req, res) => {
     }//end of outer else
   });
 });
-
 
 // this method adds new host and individual data in our database
 router.post("/putLoginDetails", (req, res) => {
