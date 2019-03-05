@@ -34,14 +34,8 @@ app.use(bodyParser.json());
 app.use(logger("dev"));
 app.use(cors());
 app.use(cookieParser());
-
-// app.get('/api/secret', withAuth, function(req, res) {
-//   res.send('The password is potato');
-// });
-
 // append /api for our http requests
 app.use("/api", router);
-
 
 router.get("/goToHome", withAuth, (req, res) => {
   // LoginDetails.find((err, data) => {
@@ -50,7 +44,6 @@ router.get("/goToHome", withAuth, (req, res) => {
   // });
   return res.json({success : true});
 });
-
 // this is our get method
 // this method fetches all available data in our database
 router.get("/getLoginDetails", withAuth, (req, res) => {
@@ -59,7 +52,6 @@ router.get("/getLoginDetails", withAuth, (req, res) => {
     return res.json({ success: true, data: data });
   });
 });
-
 // this is our update method
 // this method overwrites existing data in our database
 router.post("/updateLoginDetails", (req, res) => {
@@ -69,7 +61,6 @@ router.post("/updateLoginDetails", (req, res) => {
     return res.json({ success: true });
   });
 });
-
 // this is our delete method
 // this method removes existing data in our database
 router.delete("/deleteLoginDetails", (req, res) => {
@@ -84,35 +75,36 @@ router.delete("/deleteLoginDetails", (req, res) => {
 router.get("/selectLoginDetails", (req, res) => {
   const username  = req.query.username;
   const password  = req.query.password;
+  // console.log('req.query.username',req.query.username);
+  // console.log('req.query.password',req.query.password);
   const secret = "itsmevik";
-  LoginDetails.findOne({'username' : username}, function(err,data) {
-    if (err) {
-      // console.log('findOne',err);
+  LoginDetails.findOne({'username' : username}, function(err,data){
+    if(err){
+      console.log('findOne err',err);
       return res.send(err);
-    }
-    else{
+    }else{
       let valid = bcrypt.compareSync(password, data.password); // true
-      // console.log('valid',valid);
+      console.log('valid',valid);
       if(valid){
           // Issue token
+          let expiresIn = '3600';
           const payload = { username };
           const token = jwt.sign(payload, secret, {
-            expiresIn: '1h'
+            expiresIn: '3600'
           });
-          // console.log('token',token);
-          // res.cookie('token', token)
-          res.cookie('token', token, { httpOnly: true })
-          // console.log('res',res);
-          // console.log('data',data);
-        return res.json({ success: true, data:data }); 
+          resdata = {...data, token:token,expiresIn:expiresIn}; 
+          // console.log('resdata',resdata);
+        return res.json({ success: true, data:resdata }); 
       }//end of if
       else{
-        return res.json({ success: false, data:data });
+        // console.log('before data',data);
+        resdata = {...data, error:'wrong password'}; 
+        // console.log('after data',resdata);
+        return res.json({ success: false, data:resdata });
       }//end of else
     }//end of outer else
   });
 });
-
 // this method adds new host and individual data in our database
 router.post("/putLoginDetails", (req, res) => {
   let data = new LoginDetails();

@@ -1,47 +1,41 @@
-import { combineReducers } from 'redux'
 import * as actionTypes from '../actions/loginActions';
 
 const initialState = {
-    showModal = false
+    showModal : false,
+    hostsignup : false
 }
 
-function home(state=initialState, action){
+const loginReducer = (state=initialState, action) => {
+    console.log('action.type',action.type)
     switch (action.type){
-        case HOMEPAGE:
-            return [
-                ...state, {
-                    showModal: false
-                }
-            ]
-        case LOGIN:
-            return [
-                ...state, {
-                    showModal: true
-                }
-            ]
-        case SIGNUP:
-            return [
-                ...state, {
-                    showModal: true
-                }
-            ]
+        case actionTypes.HOMEPAGE:
+            return {
+                ...state,
+                showModal:  false
+            }
+        case actionTypes.LOGIN:
+            return {
+                ...state,
+                showModal: true
+            }
+        case actionTypes.SIGNUP:
+            return {
+                ...state, 
+                showModal: true
+            }
+        case actionTypes.HOSTSIGNUP:
+            return {
+                ...state, 
+                    showModal: true,
+                    hostsignup: true
+            }
+        case actionTypes.LOGINMODALCLOSE:
+            return {
+                ...state,
+                showModal : false
+            }        
         default: return state           
     }//end of switch
 }//end of function
 
-function auth(state=initialState, action){
-    switch(action.type){
-        case EMAIL_AUTH:
-        case EMAIL_SIGNUP:
-        case FORGOT_PASSWORD:
-        case RECOVER_PASSWORD:
-        default: return state           
-    }//end of switch
-}//end of function
-
-const login = combineReducers({
-    home,
-    auth
-})
-
-export default login;
+export default loginReducer;
