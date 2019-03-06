@@ -79,9 +79,11 @@ router.get("/selectLoginDetails", (req, res) => {
   // console.log('req.query.password',req.query.password);
   const secret = "itsmevik";
   LoginDetails.findOne({'username' : username}, function(err,data){
-    if(err){
+    if(err || data === null){
       console.log('findOne err',err);
-      return res.send(err);
+      resdata = {...data, error:'wrong userid'}; 
+      console.log('after data',resdata);
+      return res.json({ success: false, data:resdata });
     }else{
       let valid = bcrypt.compareSync(password, data.password); // true
       console.log('valid',valid);
@@ -99,7 +101,7 @@ router.get("/selectLoginDetails", (req, res) => {
       else{
         // console.log('before data',data);
         resdata = {...data, error:'wrong password'}; 
-        // console.log('after data',resdata);
+        console.log('after data',resdata);
         return res.json({ success: false, data:resdata });
       }//end of else
     }//end of outer else

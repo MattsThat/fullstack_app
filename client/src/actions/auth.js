@@ -66,13 +66,13 @@ export const auth = (email,pwd,history) => {
                 history.push('/dashboard');
             }
             else{
-                history.push('/invalidlogin');
+                history.push('/');
                 dispatch(authFail(response.data.data.error));
             }
         })
         .catch(err => {
-            history.push('/invalidlogin');
-            dispatch(authFail(err.response.error));
+            history.push('/');
+            dispatch(authFail(response.data.data.error));
         });
     };
 };
