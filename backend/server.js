@@ -37,8 +37,9 @@ app.use(cookieParser());
 // append /api for our http requests
 app.use("/api", router);
 
-router.get("/goToHome", withAuth, (req, res) => {
-  // LoginDetails.find((err, data) => {
+router.get("/goToHome", (req, res) => {
+  // router.get("/goToHome", withAuth, (req, res) => {
+    // LoginDetails.find((err, data) => {
   //   if (err) return res.json({ success: false, error: err });
   //   return res.json({ success: true, data: data });
   // });
@@ -46,10 +47,17 @@ router.get("/goToHome", withAuth, (req, res) => {
 });
 // this is our get method
 // this method fetches all available data in our database
-router.get("/getLoginDetails", withAuth, (req, res) => {
+// router.get("/getLoginDetails", withAuth, (req, res) => {
+  router.get("/getLoginDetails", (req, res) => {
   LoginDetails.find((err, data) => {
-    if (err) return res.json({ success: false, error: err });
-    return res.json({ success: true, data: data });
+    if (err) {
+      console.log(err);
+      return res.json({ success: false, error: err });
+    }
+    else{
+      console.log('data',data);
+      return res.json({ success: true, data: data });
+    }  
   });
 });
 // this is our update method
@@ -112,23 +120,33 @@ router.post("/putLoginDetails", (req, res) => {
   let data = new LoginDetails();
   const { id, host, nickname, username, password } = req.body;
   const saltRounds=10;
+  const secret = "itsmevik";
   if ((!id && id !== 0) || !username) {
     return res.json({
       success: false,
       error: "INVALID INPUTS"
     });
   }
-    let hashedPassword=bcrypt.hashSync(password, saltRounds);
-    data.id = id;
-    data.host = host;
-    data.nickname = nickname;
-    data.username = username;
-    data.password = hashedPassword;
-    data.save(err => {
-      if (err) return res.json({ success: false, error: err });
-      return res.json({ success: true });
-      } 
-    );//end of save
+  let hashedPassword=bcrypt.hashSync(password, saltRounds);
+  data.id = id;
+  data.host = host;
+  data.nickname = nickname;
+  data.username = username;
+  data.password = hashedPassword;
+  data.save(err => {
+    if (err) 
+      return res.json({ success: false, error: err });
+    else{
+      let expiresIn = '3600';
+      const payload = { username };
+      const token = jwt.sign(payload, secret, {
+        expiresIn: '3600'
+      });
+      resdata = {...data, token:token,expiresIn:expiresIn}; 
+      return res.json({ success: true, data:resdata });
+      }//end of else
+    } //
+  );//end of save
 });
 
 router.get("/sendemail",(req, res) => {

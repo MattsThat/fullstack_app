@@ -1,5 +1,5 @@
 import * as actionTypes from '../actions/loginActions';
-import axios from 'axios';
+// import axios from 'axios';
 import { updateObject } from '../common/utility';
 
 const initialState = {
@@ -44,13 +44,6 @@ const setAuthRedirectPath = (state, action) => {
 
 const authReducer = (state=initialState, action) =>{
     switch(action.type){
-        // case actionTypes.EMAIL_AUTH:
-        //     console.log('email',action.authdata.email);
-        //     console.log('pwd',action.authdata.pwd);
-        //     return auth(state, action);
-        // case actionTypes.EMAIL_SIGNUP:
-        // case actionTypes.FORGOT_PASSWORD:
-        // case actionTypes.RECOVER_PASSWORD:
         case actionTypes.AUTH_START: return authStart(state, action);
         case actionTypes.AUTH_SUCCESS: return authSuccess(state, action);
         case actionTypes.AUTH_FAIL: return authFail(state, action);

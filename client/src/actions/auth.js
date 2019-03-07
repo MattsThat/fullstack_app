@@ -21,7 +21,7 @@ export const authFail = (error) => {
     };
 };
 
-export const logout = () => {
+export const logout = () => {   
     localStorage.removeItem('token');
     localStorage.removeItem('expirationDate');
     return {
@@ -36,6 +36,49 @@ export const checkAuthTimeout = (expirationTime) => {
             dispatch(logout());
         }, expirationTime * 1000);
     };
+};
+
+export const register = (nickname,username,password,props) =>{
+    return dispatch => {
+        // dispatch(authStart());
+        let idToBeAdded= 0;
+        axios.get(`/getLoginDetails`)
+        .then(res => { 
+        //   console.log('in putDataToDB',res.data);
+           idToBeAdded= res.data.data.length + 1;
+           console.log('in putDataToDB idToBeAdded',idToBeAdded);
+           let hostsignup = props.hostsignup;
+        //    console.log('hostsignup',hostsignup);
+             axios.post(`/putLoginDetails`, {
+               id: parseInt(idToBeAdded, 10),
+               host: hostsignup,
+               nickname: nickname,
+               username: username,
+               password: password
+             })
+            .then(response => {
+                if(response.data.success){
+                    dispatch(authSuccess(response.data.data.token));
+                    dispatch(checkAuthTimeout(response.data.data.expiresIn));
+                    props.history.push('/dashboard');
+       
+                }else{
+                    props.history.push('/');
+                    dispatch(authFail(response.data.data.error));    
+                }
+            })
+            .catch(err =>{
+                props.history.push('/');
+                dispatch(authFail(err));
+                console.log(err);
+            })
+        })   
+        .catch(err =>{
+            props.history.push('/');
+            dispatch(authFail(err));
+            console.log(err);
+        });
+    }
 };
 
 export const auth = (email,pwd,history) => {

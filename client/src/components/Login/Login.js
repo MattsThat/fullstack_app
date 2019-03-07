@@ -48,27 +48,27 @@ class Login extends React.Component {
       console.log('mail done');
     }//end of sendEmail
 
-    putDataToDB(nickname, username, password,props){
-      let idToBeAdded= 0;
-      axios.get(`/getLoginDetails`)
-      .then(function (res) { 
-        // console.log('in putDataToDB',res.data);
-         idToBeAdded= res.data.data.length;
-        //  console.log('in putDataToDB idToBeAdded',idToBeAdded);
-         let hostsignup = props.hostsignup;
-        //  console.log('hostsignup',hostsignup);
-           axios.post(`/putLoginDetails`, {
-             id: parseInt(idToBeAdded, 10),
-             host: hostsignup,
-             nickname: nickname,
-             username: username,
-             password: password
-           });
-      })
-      .catch(function(error){
-        console.log(error);
-      });
-    }//end of putDataToDB
+    // putDataToDB(nickname, username, password,props){
+    //   let idToBeAdded= 0;
+    //   axios.get(`/getLoginDetails`)
+    //   .then(function (res) { 
+    //     // console.log('in putDataToDB',res.data);
+    //      idToBeAdded= res.data.data.length;
+    //     //  console.log('in putDataToDB idToBeAdded',idToBeAdded);
+    //      let hostsignup = props.hostsignup;
+    //     //  console.log('hostsignup',hostsignup);
+    //        axios.post(`/putLoginDetails`, {
+    //          id: parseInt(idToBeAdded, 10),
+    //          host: hostsignup,
+    //          nickname: nickname,
+    //          username: username,
+    //          password: password
+    //        });
+    //   })
+    //   .catch(function(error){
+    //     console.log(error);
+    //   });
+    // }//end of putDataToDB
 
     onLoginClick(event){
         // event.preventDefault();
@@ -88,7 +88,7 @@ class Login extends React.Component {
       }//end of else
     }// end of onLogin
     
-    onRegister(){
+    onRegisterClick(){
         console.log('__onRegister__');
         console.log('nickname: ' + document.querySelector('#login').value);
         console.log('email: ' + document.querySelector('#email').value);
@@ -102,10 +102,8 @@ class Login extends React.Component {
             error: true
           })
         } else {
-          console.log('__onRegister__this.props',this.props);
-          this.putDataToDB(nickname,email,password,this.props);
-          this.closeModal();
-          this.props.history.push('/dashboard');
+          console.log('__onRegister__this.state.props',this.props);
+          this.props.onRegister(nickname,email,password,this.props);
         } //end of else
     }//end of onRegister
     
@@ -148,7 +146,7 @@ class Login extends React.Component {
     }
 
     render() {
-
+    console.log('this.props.error',this.props.error);
     const isLoading = this.props.loading;
     return(
         <div>
@@ -162,7 +160,8 @@ class Login extends React.Component {
                 }}
                 loginError={{
                     label: "Couldn't sign in, please try again."
-                }}
+                    // label: {this.props.error}
+                  }}
                 registerError={{
                     label: "Couldn't sign up, please try again."
                 }}
@@ -170,7 +169,8 @@ class Login extends React.Component {
                 // finishLoading={this.finishLoading.bind(this)}
                 form={{
                     onLogin:this.onLoginClick.bind(this),
-                    onRegister: this.props.onRegister,
+                    // onRegister: this.props.onRegister,
+                    onRegister: this.onRegisterClick.bind(this),
                     onRecoverPassword: this.props.onRecoverPassword,
                     recoverPasswordSuccessLabel: this.props.recoverPasswordSuccess
                       ? {
@@ -281,6 +281,7 @@ const mapStateToProps = state => {
     error: state.auth.error,
     // isAuth  : state.auth.token !== null,
     isAuth  : state.auth.isAuth,
+    hostsignup : state.login.hostsignup,
     authRedirectPath: state.auth.authRedirectPath
   };
 };
@@ -288,7 +289,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return{
     onLogin : (email,pwd,history) => dispatch(actions.auth(email,pwd,history)),
-    onRegister : () => dispatch({type:'EMAIL_SIGNUP'}),
+    onRegister : (nickname,email,password,props) => dispatch(actions.register(nickname,email,password,props)),
     onRecoverPassword : () => dispatch({type:'FORGOT_PASSWORD'}),
     onLoginClose : () => dispatch({type:'LOGINMODALCLOSE'})
   };
