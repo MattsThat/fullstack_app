@@ -6,5 +6,13 @@ export {
     authCheckState
 } from './auth';
 
+export {
+    bookAPlace,
+    myEvents,
+    authLogout,
+    myFriends,
+    goToHome,
+    search,
+    myProfile
+} from './headerActionCreator';
 
-// z8a2kr1pvf2qoya

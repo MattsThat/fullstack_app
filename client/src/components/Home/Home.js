@@ -5,7 +5,7 @@ import Header from '../Header/Header';
 import CarouselHP from './carouselhp'
 import classes from './Home.css'
 import { connect } from 'react-redux';
-import LoggedInHeader from './../Header/LoggedInHeader';
+// import LoggedInHeader from './../Header/LoggedInHeader';
 
 class Home extends Component{
 
@@ -48,9 +48,9 @@ class Home extends Component{
 
 const mapStateToProps = state => {
   return {
-    // showModal : state.login.showModal,
+    showModal : state.login.showModal,
     // error: state.auth.error,
-    // // isAuth  : state.auth.token !== null,
+    // isAuth  : state.auth.token !== null,
     isAuth  : state.auth.isAuth,
     // authRedirectPath: state.auth.authRedirectPath
   };

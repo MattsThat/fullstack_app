@@ -60,16 +60,6 @@ class Header extends React.Component {
           </li>
         </ul>
       </div>
-      <div class="p-2 bd-highlight">
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-          <li class="nav-item">
-            {/* <NavLink to='/' onClick={this.callme} activeStyle={{fontWeight: "bold",color: "red"}}>
-                Signup
-              </NavLink> */}
-            <Button onClick={this.props.onLogout}>Logout</Button>
-          </li>
-        </ul>
-      </div>
       <div class="p-2 flex-grow-1 bd-highlight">
           {/* <form class="form-inline my-2 my-lg-0"> */}
           <form class="form-inline mr-auto mt-2 mt-lg-0">
@@ -105,7 +95,7 @@ const mapDispatchToProps = dispatch => {
     onHostSignUpMenu : () => dispatch({type:actionTypes.HOSTSIGNUP}),
     onPersonalSignupMenu : () => dispatch({type:actionTypes.SIGNUP}),
     onSearchMenu : () => dispatch({type:actionTypes.SEARCHFROMMENU}),
-    onLogout : () => dispatch({type:actionTypes.LOGOUT})
+    // onLogout : () => dispatch({type:actionTypes.LOGOUT})
   };
 };
 

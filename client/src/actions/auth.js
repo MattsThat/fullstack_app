@@ -7,10 +7,19 @@ export const authStart = () => {
     };
 };
 
-export const authSuccess = (token) => {
+export const authSuccess = (data) => {
     return {
         type: actionTypes.AUTH_SUCCESS,
-        token: token
+        token: data.token,
+        nickname : data.nickname,
+        hostsignup : data.hostsignup
+    };
+};
+
+export const modalClose = (error) => {
+    return {
+        type: actionTypes.LOGINMODALCLOSE,
+        error: error
     };
 };
 
@@ -51,14 +60,14 @@ export const register = (nickname,username,password,props) =>{
         //    console.log('hostsignup',hostsignup);
              axios.post(`/putLoginDetails`, {
                id: parseInt(idToBeAdded, 10),
-               host: hostsignup,
+               hostsignup: hostsignup,
                nickname: nickname,
                username: username,
                password: password
              })
             .then(response => {
                 if(response.data.success){
-                    dispatch(authSuccess(response.data.data.token));
+                    dispatch(authSuccess(response.data.data));
                     dispatch(checkAuthTimeout(response.data.data.expiresIn));
                     props.history.push('/dashboard');
        
@@ -104,8 +113,11 @@ export const auth = (email,pwd,history) => {
                 const expirationDate = new Date(new Date().getTime() + response.data.data.expiresIn * 1000);
                 localStorage.setItem('token',response.data.data.token);
                 localStorage.setItem('expirationDate',expirationDate);
-                dispatch(authSuccess(response.data.data.token));
+                // console.log('response.data.data',response.data.data);
+                // console.log('response.data._doc.nickname',response.data._doc.nickname);
+                dispatch(authSuccess(response.data.data));
                 dispatch(checkAuthTimeout(response.data.data.expiresIn));
+                dispatch(modalClose());
                 history.push('/dashboard');
             }
             else{

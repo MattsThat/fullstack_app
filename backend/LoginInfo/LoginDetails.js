@@ -6,9 +6,10 @@ const Schema = mongoose.Schema;
 const LoginDetails = new Schema(
   {
     id: Number,
-    host:String,
+    // host:String,
     nickname:String,
     username: String,
+    hostsignup: Boolean,
     password: String
   },
   { timestamps: true }, 

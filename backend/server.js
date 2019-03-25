@@ -8,7 +8,7 @@ const mailer = require("nodemailer");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
-const withAuth = require('./middleware');
+// const withAuth = require('./middleware');
 
 const API_PORT = 3001;
 const app = express();
@@ -83,12 +83,10 @@ router.delete("/deleteLoginDetails", (req, res) => {
 router.get("/selectLoginDetails", (req, res) => {
   const username  = req.query.username;
   const password  = req.query.password;
-  // console.log('req.query.username',req.query.username);
-  // console.log('req.query.password',req.query.password);
   const secret = "itsmevik";
   LoginDetails.findOne({'username' : username}, function(err,data){
     if(err || data === null){
-      console.log('findOne err',err);
+      // console.log('findOne err',err);
       resdata = {...data, error:'wrong userid'}; 
       console.log('after data',resdata);
       return res.json({ success: false, data:resdata });
@@ -102,14 +100,14 @@ router.get("/selectLoginDetails", (req, res) => {
           const token = jwt.sign(payload, secret, {
             expiresIn: '3600'
           });
-          resdata = {...data, token:token,expiresIn:expiresIn}; 
-          // console.log('resdata',resdata);
+          resdata = {...data, token:token, expiresIn:expiresIn, nickname:data.nickname, hostsignup:data.hostsignup}; 
+          // console.log('in register data',resdata);
         return res.json({ success: true, data:resdata }); 
       }//end of if
       else{
         // console.log('before data',data);
         resdata = {...data, error:'wrong password'}; 
-        console.log('after data',resdata);
+        // console.log('after data',resdata);
         return res.json({ success: false, data:resdata });
       }//end of else
     }//end of outer else
@@ -118,7 +116,7 @@ router.get("/selectLoginDetails", (req, res) => {
 // this method adds new host and individual data in our database
 router.post("/putLoginDetails", (req, res) => {
   let data = new LoginDetails();
-  const { id, host, nickname, username, password } = req.body;
+  const { id, hostsignup, nickname, username, password } = req.body;
   const saltRounds=10;
   const secret = "itsmevik";
   if ((!id && id !== 0) || !username) {
@@ -129,10 +127,11 @@ router.post("/putLoginDetails", (req, res) => {
   }
   let hashedPassword=bcrypt.hashSync(password, saltRounds);
   data.id = id;
-  data.host = host;
+  data.hostsignup = hostsignup;
   data.nickname = nickname;
   data.username = username;
   data.password = hashedPassword;
+  // console.log('before save data',data);
   data.save(err => {
     if (err) 
       return res.json({ success: false, error: err });

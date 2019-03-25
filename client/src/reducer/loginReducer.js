@@ -26,13 +26,16 @@ const loginReducer = (state=initialState, action) => {
         case actionTypes.HOSTSIGNUP:
             return {
                 ...state, 
-                    showModal: true,
-                    hostsignup: true
+                showModal: true,
+                hostsignup: true
             }
-        case actionTypes.LOGOUT:
-            localStorage.removeItem('token');
-            localStorage.removeItem('expirationDate');    
-            return state
+        // case actionTypes.LOGOUT:
+        //     localStorage.removeItem('token');
+        //     localStorage.removeItem('expirationDate');    
+        //     return {
+        //         ...state,
+        //         showModal:  false
+        //     }
         case actionTypes.LOGINMODALCLOSE:
             return {
                 ...state,

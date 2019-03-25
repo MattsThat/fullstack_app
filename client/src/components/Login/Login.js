@@ -48,28 +48,6 @@ class Login extends React.Component {
       console.log('mail done');
     }//end of sendEmail
 
-    // putDataToDB(nickname, username, password,props){
-    //   let idToBeAdded= 0;
-    //   axios.get(`/getLoginDetails`)
-    //   .then(function (res) { 
-    //     // console.log('in putDataToDB',res.data);
-    //      idToBeAdded= res.data.data.length;
-    //     //  console.log('in putDataToDB idToBeAdded',idToBeAdded);
-    //      let hostsignup = props.hostsignup;
-    //     //  console.log('hostsignup',hostsignup);
-    //        axios.post(`/putLoginDetails`, {
-    //          id: parseInt(idToBeAdded, 10),
-    //          host: hostsignup,
-    //          nickname: nickname,
-    //          username: username,
-    //          password: password
-    //        });
-    //   })
-    //   .catch(function(error){
-    //     console.log(error);
-    //   });
-    // }//end of putDataToDB
-
     onLoginClick(event){
         // event.preventDefault();
         console.log('__onLogin__');
@@ -83,8 +61,7 @@ class Login extends React.Component {
           //   error: true
           // })
         } else {
-        //this.props.history.push('/dashboard');
-    this.props.onLogin(email,password,this.props.history);
+        this.props.onLogin(email,password,this.props.history);
       }//end of else
     }// end of onLogin
     
@@ -102,7 +79,6 @@ class Login extends React.Component {
             error: true
           })
         } else {
-          console.log('__onRegister__this.state.props',this.props);
           this.props.onRegister(nickname,email,password,this.props);
         } //end of else
     }//end of onRegister
