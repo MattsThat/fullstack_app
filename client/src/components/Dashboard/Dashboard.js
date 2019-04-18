@@ -2,9 +2,9 @@ import React from 'react';
 import LoggedInHeader from './../Header/LoggedInHeader';
 
 class Dashboard extends React.Component {
-  state = {
-    open: true,
-  };
+  // state = {
+  //   open: true,
+  // };
 
   render() {
     return (

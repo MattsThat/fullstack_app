@@ -19,11 +19,18 @@ export const myFriends = () => {
     };
 };
 
-export const myProfile = () => {
+export const loadMyProfile = () => {
     return {
         type: actionTypes.MY_PROFILE,
     };
 };
+
+export const myProfile = (props) => {
+    return dispatch => {
+        dispatch(loadMyProfile());
+        props.history.push('/myprofile');
+    }
+}
 
 export const goToHome = () => {
     return {

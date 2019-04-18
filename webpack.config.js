@@ -13,6 +13,11 @@ module.exports = {
     maxEntrypointSize: 5120000,
     maxAssetSize: 5120000
   },
+  // resolve: {
+  //   alias: {
+  //       'react': path.resolve(__dirname, './node_modules/react', 'react')
+  //   }
+  // },
   node: {
     dns: 'mock',
     net: 'mock',

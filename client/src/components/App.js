@@ -5,6 +5,7 @@ import Login from './Login/Login';
 import InvalidLogin from './Login/InvalidLogin';
 import LoginEmail from './Login/Loginemail';
 import Dashboard from './Dashboard/Dashboard';
+import MyProfile from './Profile/myProfile';
 import { Route } from 'react-router-dom';
 //import AuthHelperMethods from './components/AuthHelperMethods';
 //Our higher order component
@@ -26,6 +27,7 @@ class App extends React.Component{
               <Route  exact path='/email' exact component={LoginEmail}/>
               <Route  exact path='/invalidlogin' exact component={InvalidLogin}/>
               <Route  exact path='/dashboard' component={Dashboard}/>
+              <Route  exact path='/myprofile' component={MyProfile}/>              
             </div>
       );//end of return
   }//end of render

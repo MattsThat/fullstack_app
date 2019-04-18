@@ -1,6 +1,6 @@
 
 import axios from "axios";
-import React from 'react';
+import React, {Component} from 'react';
 import ReactModalLogin from 'react-modal-login';
 import { facebookConfig, googleConfig } from './Social-config.js';
 import { withRouter } from 'react-router-dom';
@@ -8,7 +8,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/index';
 
-class Login extends React.Component {
+class Login extends Component {
 
     constructor(props){
         super(props);

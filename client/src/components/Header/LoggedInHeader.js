@@ -38,7 +38,7 @@ handleClose = event => {
 };
 
 handleClickMyProfile = (event) => {
-    this.props.onMyProfile();
+    this.props.onMyProfile(this.props);
     this.handleClose(event);
 }
 
@@ -152,7 +152,7 @@ const mapDispatchToProps = dispatch => {
         onEvents : () => dispatch(actions.myEvents()),
         onBookAPlace : () => dispatch(actions.bookAPlace()),
         onFriends : () => dispatch(actions.myFriends()),
-        onMyProfile : () => dispatch(actions.myProfile()),
+        onMyProfile : (props) => dispatch(actions.myProfile(props)),
         onGoToHome : () => dispatch(actions.goToHome()),
         onLogout : (props) => dispatch(actions.authLogout(props))
     };
