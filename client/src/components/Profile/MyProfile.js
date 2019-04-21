@@ -1,7 +1,7 @@
 import React from 'react';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import LoggedInHeader from './../Header/LoggedInHeader';
+import LoggedInHeader from '../Header/LoggedInHeader';
 
 
 const SignupSchema = Yup.object().shape({
@@ -20,7 +20,6 @@ const SignupSchema = Yup.object().shape({
 
 const MyProfile = () => (
   <div>
-    <LoggedInHeader/>  
     <h1>My Profile</h1>
     <Formik
       initialValues={{

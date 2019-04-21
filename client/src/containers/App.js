@@ -1,12 +1,13 @@
 import React from 'react'
-import Home from './Home/Home'
+import Home from '../components/Home/Home'
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import Login from './Login/Login';
-import InvalidLogin from './Login/InvalidLogin';
-import LoginEmail from './Login/Loginemail';
-import Dashboard from './Dashboard/Dashboard';
-import MyProfile from './Profile/myProfile';
+import Login from '../components/Login/Login';
+import InvalidLogin from '../components/Login/InvalidLogin';
+import LoginEmail from '../components/Login/Loginemail';
+import Dashboard from '../components/Dashboard/Dashboard';
+import MyProfile from '../components/Profile/myProfile';
 import { Route } from 'react-router-dom';
+import Layout from '../components/Layout/Layout';
 //import AuthHelperMethods from './components/AuthHelperMethods';
 //Our higher order component
 //import withAuth from './components/withAuth';
@@ -22,12 +23,14 @@ class App extends React.Component{
   render() {
     return(
             <div>
+            <Layout>  
               <Route  exact path='/' component={Home}/>
               <Route  exact path='/signup' component={Login}/>
               <Route  exact path='/email' exact component={LoginEmail}/>
               <Route  exact path='/invalidlogin' exact component={InvalidLogin}/>
               <Route  exact path='/dashboard' component={Dashboard}/>
-              <Route  exact path='/myprofile' component={MyProfile}/>              
+              <Route  exact path='/myprofile' component={MyProfile}/> 
+            </Layout>             
             </div>
       );//end of return
   }//end of render

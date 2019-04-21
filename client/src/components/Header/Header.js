@@ -7,7 +7,6 @@ import Login from './../Login/Login';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../actions/loginActions';
 
-
 class Header extends React.Component {
 
   constructor(props){
