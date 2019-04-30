@@ -18,6 +18,16 @@ module.exports = {
   //       'react': path.resolve(__dirname, './node_modules/react', 'react')
   //   }
   // },
+  resolve: {
+    alias: {
+      'react': path.resolve('node_modules/react'),
+    },
+  },
+  resolve: {
+    alias: {
+      'react-dom': path.resolve('node_modules/react-dom'),
+    },
+  },
   node: {
     dns: 'mock',
     net: 'mock',

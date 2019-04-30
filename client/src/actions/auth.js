@@ -51,14 +51,14 @@ export const register = (nickname,username,password,props) =>{
     return dispatch => {
         // dispatch(authStart());
         let idToBeAdded= 0;
-        axios.get(`/getLoginDetails`)
+        axios.get(`/login/getLoginDetails`)
         .then(res => { 
         //   console.log('in putDataToDB',res.data);
            idToBeAdded= res.data.data.length + 1;
            console.log('in putDataToDB idToBeAdded',idToBeAdded);
            let hostsignup = props.hostsignup;
         //    console.log('hostsignup',hostsignup);
-             axios.post(`/putLoginDetails`, {
+             axios.post(`/login/putLoginDetails`, {
                id: parseInt(idToBeAdded, 10),
                hostsignup: hostsignup,
                nickname: nickname,
@@ -96,7 +96,7 @@ export const auth = (email,pwd,history) => {
     let path = null;
     return dispatch => {
         dispatch(authStart());
-        axios.get(`/selectLoginDetails`,{
+        axios.get(`/login/selectLoginDetails`,{
             params:{
               username: email,
               password: pwd

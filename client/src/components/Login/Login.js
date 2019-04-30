@@ -4,7 +4,6 @@ import React, {Component} from 'react';
 import ReactModalLogin from 'react-modal-login';
 import { facebookConfig, googleConfig } from './Social-config.js';
 import { withRouter } from 'react-router-dom';
-// import Auth from "./AuthHelperMethods";
 import { connect } from 'react-redux';
 import * as actions from '../../actions/index';
 
