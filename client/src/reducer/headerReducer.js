@@ -1,12 +1,14 @@
 import * as actionTypes from '../actions/headerActions';
-// import { updateObject } from '../common/utility';
+import { updateObject } from '../common/utility';
 
 const initialState = {
     token : null,
+    profiledata : null,
+    profileformvalues : null
 }
 
 const headerReducer = (state=initialState, action) => {
-    console.log('action.type',action.type)
+    console.log('headerReducer action.type',action.type)
     switch (action.type){
         case actionTypes.EVENTS:
             return {
@@ -28,11 +30,21 @@ const headerReducer = (state=initialState, action) => {
                 ...state, 
                 token:  action.token
             }
-        case actionTypes.MY_PROFILE:
+        case actionTypes.MY_PROFILE_UPDATE:
             return {
                 ...state, 
                 token:  action.token
-            }
+            }            
+        case actionTypes.MY_PROFILE_UPDATE:
+            return updateObject(state,{
+                token: action.token
+             });            
+        case actionTypes.MY_PROFILE:
+        // console.log("MY_PROFILE in reducer",action.profiledata)
+            return updateObject( state, {
+                // token:  action.token,
+                profiledata : action.profiledata
+            });
         case actionTypes.AUTH_LOGOUT:
             localStorage.removeItem('token');
             localStorage.removeItem('expirationDate');    

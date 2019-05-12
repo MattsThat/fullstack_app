@@ -1,14 +1,9 @@
 
 import  React  from 'react';
-// import {  Link, NavLink } from 'react-router-dom';
-//import styles from './Header.css';
 import Button from '@material-ui/core/Button';
-// import Login from './../Login/Login';
 import { connect } from 'react-redux';
-import * as actions from '../../actions/index';
+import * as actions from '../../actions';
 import { withRouter } from 'react-router-dom';
-// import Menu from '@material-ui/core/Menu';
-// import MenuItem from '@material-ui/core/MenuItem';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Grow from '@material-ui/core/Grow';
 import Paper from '@material-ui/core/Paper';
@@ -26,13 +21,13 @@ constructor(props){
     super(props);
     this.state = { address: '' };
 }
-
 state = {
     open: false,
 };
+
 handleChange = address => {
     this.setState({ address });
-  };
+};
  
 handleSelect = address => {
     geocodeByAddress(address)
@@ -53,6 +48,7 @@ handleClose = event => {
 };
 
 handleClickMyProfile = (event) => {
+    // console.log('handleClickMyProfile this.props=',this.props);
     this.props.onMyProfile(this.props);
     this.handleClose(event);
 }
@@ -194,6 +190,7 @@ const mapStateToProps = state => {
     return{
         // showModal : state.login.showModal,
         nickname : state.auth.nickname,
+        id : state.auth.id,
         hostsignup : state.auth.hostsignup
     };
 };

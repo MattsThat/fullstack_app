@@ -13,6 +13,8 @@ export {
     myFriends,
     goToHome,
     search,
+    updateProfileData,
+    myProfileUpdate,
     myProfile
 } from './headerActionCreator';
 

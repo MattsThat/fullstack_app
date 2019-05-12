@@ -6,7 +6,7 @@ const initialState = {
 }
 
 const loginReducer = (state=initialState, action) => {
-    console.log('action.type',action.type)
+    // console.log('action.type',action.type)
     switch (action.type){
         case actionTypes.HOMEPAGE:
             return {

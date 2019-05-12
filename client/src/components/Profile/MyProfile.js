@@ -1,28 +1,31 @@
 import React from 'react';
-import { Formik, Field, Form as FormikForm, FieldArray } from 'formik';
+import { Formik, Field } from 'formik';
 import * as Yup from 'yup';
-import {  Form, Input, Datepicker, PhoneInput, Radio, Checkbox } from 'react-formik-ui';
-
-// import LoggedInHeader from '../Header/LoggedInHeader';
-
+// import { Input, Datepicker, PhoneInput, Radio, Checkbox } from 'react-formik-ui';
+import { connect } from 'react-redux';
+import * as actions from '../../actions';
+import { withRouter } from 'react-router-dom';
+import './../../static/css/profileform.css'; 
+// import { ProfileForm } from './ProfileForm';
+import { RadioButton, RadioButtonGroup } from '../common/CommonComp';
 
 const SignupSchema = Yup.object().shape({
-  firstName: Yup.string()
+  firstname: Yup.string()
     .min(2, 'Too Short!')
     .max(50, 'Too Long!')
     .required('Required'),
-  lastName: Yup.string()
+  lastname: Yup.string()
     .min(2, 'Too Short!')
     .max(50, 'Too Long!')
     .required('Required'),
   email: Yup.string()
     .email('Invalid email')
     .required('Required'),
+  gender: Yup.string()
+    .required("Please select")
 });
 
-
-// const MyProfile = () => (
-class MyProfile extends React.Component{
+class MyProfile extends React.Component {
 
   constructor(props){
     super(props);
@@ -58,132 +61,203 @@ class MyProfile extends React.Component{
         // autocomplete.setBounds(circle.getBounds());
       });
     }
-  }
+  }//end of geolocate
 
-  profileSave(){
-    // alert('here');
-    // alert(JSON.stringify(data));
-  }
+  // handleClose = event => {
+  //   if (this.anchorEl.contains(event.target)) {
+  //     return;
+  //   }
+  //   this.setState({ open: false });
+  // };
+  // handleProfileSubmit(){
+  //   console.log('handleProfileSubmit this.props=',this.props);
+  //   this.props.onProfileSubmit(this.props);
+  //   // this.handleClose(event);
+  // }
 
-  render(){
-    return(
-      <div>
-        <h1>My Profile</h1>
-        <Formik
-          initialValues={{
-            firstName: '',
-            lastName: '',
-            email: '',
-          }}
-          validationSchema={SignupSchema}
-          onSubmit={values => {
-            // same shape as initial values
-            console.log(values);
-          }}
-        >
-          {({ errors, touched }) => (
-            <div>
-            <Form themed>
-                {/* <div> First Name
-                    <Field name="firstName" />
-                    {errors.firstName && touched.firstName ? (
+  render() {
+    let firstname='';
+    let lastname='';
+    let email='';
+    let id='';
+    let gender='';
+    let lineid='';
+    let address='';
+  if (this.props.profiledata === null){
+      firstname=''; 
+      lastname='';
+      email='';
+      id='';
+      gender='';
+      lineid='';
+      address='';
+    }else{
+      id=this.props.profiledata.id; 
+      firstname=this.props.profiledata.firstname; 
+      lastname=this.props.profiledata.lastname;
+      email=this.props.profiledata.email;
+      gender=this.props.profiledata.gender;
+      lineid=this.props.profiledata.lineid;
+      address=this.props.profiledata.address;
+    }
+    return (
+    <div>
+      <h1>My Profile</h1>
+      <br/>
+      <br/>
+      <Formik
+        initialValues={{
+          id: id,
+          firstname: firstname,
+          lastname: lastname,
+          email: email,
+          gender: gender,
+          lineid: lineid,
+          address: address
+        }}
+        onSubmit={(values, { setSubmitting }) => {
+          setTimeout(() => {
+            // console.log('render this.props.values=',this.props.values);
+            // alert(JSON.stringify(values, null, 2));
+            this.props.onProfileSubmit(this.props,values);
+            setSubmitting(false);
+          }, 500);
+        }}
+        validationSchema={SignupSchema}>
+        {props => {
+          const {
+            values,
+            touched,
+            errors,
+            dirty,
+            isSubmitting,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            handleReset,
+          } = props;
+          return (
+            //  {({ errors, touched }) => (
+            <form onSubmit={handleSubmit}>
+                <input type="hidden" name="id" defaultValue={id}/>
+                <input type="hidden" name="history" defaultValue={this.props.history}/>
+                <div> First Name
+                    <input name="firstname" 
+                    type= "text" 
+                    // value={values.firstName} 
+                    defaultValue={firstname} 
+                    onChange={handleChange} 
+                    onBlur={handleBlur}
+                    />
+                    {errors.firstname && touched.firstname ? (
                         <div>{errors.firstName}</div>
                     ) : null}
                 </div> 
-                <div>Last Name
-                    <Field name="lastName" />
-                    {errors.lastName && touched.lastName ? (
+                 <div> Last Name
+                    <input name="lastname" 
+                    type= "text" 
+                    // value={values.lastName} 
+                    defaultValue={lastname} 
+                    onChange={handleChange} 
+                    onBlur={handleBlur}/>
+                    {errors.lastname && touched.lastname ? (
                         <div>{errors.lastName}</div>
                     ) : null}
                 </div>
                 <div> Email
-                    <Field name="email" type="email" />
+                    <input name="email" 
+                    type="email" 
+                    // value={values.email} 
+                    defaultValue={email}
+                    onChange={handleChange} 
+                    onBlur={handleBlur}/>
                     {errors.email && touched.email ? <div>{errors.email}</div> : null}
-                </div> */}
-                <div>
-                    <Input
-                      name='firstName'
-                      label='Input field label'
-                      placeholder='First Name'
-                      required/>
-                    <Input
-                      name='lastName'
-                      label='Input field label'
-                      placeholder='Last Name'
-                      required/>
-                    <Input
-                      name='email'
-                      label='Input field label'
-                      placeholder='Email'
-                      type='email'
-                      required/>
-                    Gender
-                    <Radio
-                      name='gender'
-                      label='Radio options label'
-                      options={[
-                        { value: '1', label: 'Male'},
-                        { value: '2', label: 'Female'},
-                        { value: '3', label: 'Not Preferred to Say'}
-                      ]}/>
-                    <Input
-                      name='lineid'
-                      label='Input field label'
-                      placeholder='LiNE ID'
-                      required/>
-                    <Input
-                      name='autocomplete'
-                      label='Input field label'
-                      placeholder='Address'
-                      onFocus= {this.geolocate()}
-                      type='text'
-                      required/>
-                    {/* DOB
-                    <Datepicker
-                      name='dob'
-                      label='Select a date'
-                      placeholder='DD.MM.YYYYY'
-                      dateFormat='dd.MM.yyyy'/>  */}
-                    Phone Number
-                    <PhoneInput
-                      name='phone'
-                      label='Phone Nr.'
-                      preferredCountries={['jp', 'us', 'in']}/>
-                    Favourite Sports<FieldArray name='favsports' component={favSportsForm}/>
-                    {/* <div> */}
-                    <button type="submit" onSubmit={this.profileSave()}>Submit</button>
-                    {/* <SubmitBtn /> */}
                 </div>
-              </Form>
-            </div> 
-          )}
+                <div> 
+                    <RadioButtonGroup
+                      id="gender"
+                      label="Gender"
+                      // value={values.gender}
+                      // error={errors.gender}
+                      // touched={touched.gender}
+                      onChange={handleChange} 
+                      onBlur={handleBlur}
+                      >
+                      <Field
+                        component={RadioButton}
+                        name="gender"
+                        id="male"
+                        label="Male"
+                        onChange={handleChange} 
+                        onBlur={handleBlur}
+                        />
+                      <Field
+                        component={RadioButton}
+                        name="gender"
+                        id="female"
+                        label="Female"
+                        onChange={handleChange} 
+                        onBlur={handleBlur}
+                        />
+                      <Field
+                        component={RadioButton}
+                        name="gender"
+                        id="na"
+                        label="Not Preffered to Say"
+                        onChange={handleChange} 
+                        onBlur={handleBlur}
+                        />
+                    </RadioButtonGroup>
+                    {errors.gender && touched.gender ? <div>{errors.gender}</div> : null}
+                </div>
+                <div> LiNE ID 
+                    <input name="lineid" 
+                    type="text" 
+                    // value={values.line} 
+                    defaultValue={lineid}
+                    onChange={handleChange} 
+                    onBlur={handleBlur}/>
+                    {errors.line && touched.line ? <div>{errors.line}</div> : null}
+                </div>
+                <div> Address 
+                    <input name="address" 
+                    type="textarea" 
+                    rows="4" cols="50" 
+                    // value={values.address} 
+                    defaultValue={address}
+                    onFocus= {this.geolocate()}
+                    onChange={handleChange} 
+                    onBlur={handleBlur}/>
+                    {errors.address && touched.address ? <div>{errors.address}</div> : null}
+                </div>
+                <div>
+                    <button type="button" className="outline" onClick={handleReset} disabled={!dirty || isSubmitting}>
+                      Reset
+                    </button>
+                    <button type="submit" disabled={isSubmitting}>Submit</button>
+                </div>
+              </form>
+          );//end of formik return
+        }}
         </Formik>
       </div>
-  );//end of teturn
+    ); //end of outer return
   }//end of render
 }//end of class
 
-export const favSportsForm = ({
-  move, swap, push, insert, unshift, pop, form
-}) => (
-  <FormikForm>
-    <Checkbox
-    name='favsports1'
-    text='Futsal'/>   
-    <Checkbox
-    name='favsports2'
-    text='Tennis'/> 
-    <Checkbox
-    name='favsports3'
-    text='Badminton'/> 
-    <Checkbox
-    name='favsports4'
-    text='Golf'/> 
-    <Input
-    name='otherSports'
-    label='Input field label'
-    placeholder='Others'/>
-  </FormikForm>  
-);
+const mapStateToProps = state => {
+  return{
+      id : state.auth.id,
+      hostsignup : state.auth.hostsignup,
+      profiledata : state.header.profiledata
+  };
+};
 
-export default MyProfile;
+const mapDispatchToProps = dispatch => {
+  return{
+      onProfileSubmit : (props,values) => dispatch(actions.myProfileUpdate(props,values)),
+      // onGetProfile : (props) => dispatch(actions.getProfile(props)),
+  };
+};
+
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(MyProfile));
