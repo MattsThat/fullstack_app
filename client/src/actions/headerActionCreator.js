@@ -7,9 +7,10 @@ export const bookAPlace = () => {
     };
 };
 
-export const myEvents = () => {
+export const bookAnEvent = (props) => {
+    props.history.push('/bookAnEvent');
     return {
-        type: actionTypes.EVENTS,
+        type: actionTypes.BOOK_AN_EVENT,
     };
 };
 
@@ -31,6 +32,7 @@ export const updateProfileData = () => {
         type: actionTypes.MY_PROFILE_UPDATE,
     };
 }
+
 
 export const myProfileUpdate = (props,values) => {
     console.log('on myProfileUpdate props',props);

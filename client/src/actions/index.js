@@ -8,7 +8,7 @@ export {
 
 export {
     bookAPlace,
-    myEvents,
+    bookAnEvent,
     authLogout,
     myFriends,
     goToHome,

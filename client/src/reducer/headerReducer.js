@@ -4,13 +4,12 @@ import { updateObject } from '../common/utility';
 const initialState = {
     token : null,
     profiledata : null,
-    profileformvalues : null
 }
 
 const headerReducer = (state=initialState, action) => {
     console.log('headerReducer action.type',action.type)
     switch (action.type){
-        case actionTypes.EVENTS:
+        case actionTypes.BOOK_AN_EVENT:
             return {
                 ...state,
                 token:  action.token

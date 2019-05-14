@@ -6,6 +6,7 @@ import InvalidLogin from '../components/Login/InvalidLogin';
 import LoginEmail from '../components/Login/Loginemail';
 import Dashboard from '../components/Dashboard/Dashboard';
 import MyProfile from '../components/Profile/myProfile';
+import BookAnEvent from '../components/Events/BookAnEvent';
 import { Route } from 'react-router-dom';
 import Layout from '../components/Layout/Layout';
 //import AuthHelperMethods from './components/AuthHelperMethods';
@@ -30,6 +31,7 @@ class App extends React.Component{
               <Route  exact path='/invalidlogin' exact component={InvalidLogin}/>
               <Route  exact path='/dashboard' component={Dashboard}/>
               <Route  exact path='/myprofile' component={MyProfile}/> 
+              <Route  exact path='/bookAnEvent' component={BookAnEvent}/> 
             </Layout>             
             </div>
       );//end of return

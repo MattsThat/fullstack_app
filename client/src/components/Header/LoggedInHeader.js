@@ -47,6 +47,18 @@ handleClose = event => {
     this.setState({ open: false });
 };
 
+handleBookAPlace = (event) => {
+    // console.log('this.props=',this.props);
+    this.props.onBookAPlace(this.props);
+    this.handleClose(event);
+}
+
+handleBookAnEvent = (event) => {
+    console.log('this called');
+    this.props.onBookAnEvent(this.props);
+    this.handleClose(event);
+}
+
 handleClickMyProfile = (event) => {
     // console.log('handleClickMyProfile this.props=',this.props);
     this.props.onMyProfile(this.props);
@@ -106,7 +118,7 @@ render(){
             {/* <NavLink to='/' onClick={this.callme} activeStyle={{fontWeight: "bold",color: "red"}}>
                 Signup
             </NavLink> */}
-            <Button onClick={this.props.onFriends}>Friends</Button>
+            <Button onClick={this.handleFriends}>Friends</Button>
         </li>
         </ul>
     </div>
@@ -116,14 +128,14 @@ render(){
             {/* <NavLink to='/' onClick={this.callme} activeStyle={{fontWeight: "bold",color: "red"}}>
                 Signup
             </NavLink> */}
-            <Button onClick={this.props.onBookAPlace}>Book a Place</Button>
+            <Button onClick={this.handleBookAPlace}>Book a Place</Button>
         </li>
         </ul>
     </div>
     <div class="p-2 bd-highlight">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
         <li class="nav-item">
-            <Button onClick={this.props.onEvents}>Events</Button>
+            <Button onClick={this.handleBookAnEvent}>Book an Event</Button>
         </li>
         </ul>
     </div>
@@ -198,8 +210,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return{
         onSearch: () => dispatch(actions.search()),
-        onEvents : () => dispatch(actions.myEvents()),
-        onBookAPlace : () => dispatch(actions.bookAPlace()),
+        onBookAnEvent : (props) => dispatch(actions.bookAnEvent(props)),
+        onBookAPlace : (props) => dispatch(actions.bookAPlace(props)),
         onFriends : () => dispatch(actions.myFriends()),
         onMyProfile : (props) => dispatch(actions.myProfile(props)),
         onGoToHome : () => dispatch(actions.goToHome()),

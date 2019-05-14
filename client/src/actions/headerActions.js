@@ -1,4 +1,4 @@
-export const EVENTS = 'EVENTS'
+export const BOOK_AN_EVENT = 'BOOK_AN_EVENT'
 export const BOOKA_PLACE = 'BOOKA_PLACE'
 export const FRIENDS = 'FRIENDS'
 export const SEARCH = 'SEARCH'
