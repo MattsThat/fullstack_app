@@ -140,11 +140,6 @@ render(){
         </ul>
     </div>
     <div class="p-2 flex-grow-1 bd-highlight">
-        {/* <form class="form-inline my-2 my-lg-0"> */}
-        {/* <form class="form-inline mr-auto mt-2 mt-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Try Sports" aria-label="Search"/>
-            <Button onClick={this.props.onSearch}>Search</Button>
-        </form>               */}
         <PlacesAutocomplete
             value={this.state.address}
             onChange={this.handleChange}

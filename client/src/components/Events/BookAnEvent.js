@@ -1,13 +1,14 @@
 import React from 'react';
 import { Formik, Field } from 'formik';
 import * as Yup from 'yup';
-// import { Input, Datepicker, PhoneInput, Radio, Checkbox } from 'react-formik-ui';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 import { withRouter } from 'react-router-dom';
 import './../../static/css/profileform.css'; 
-// import { ProfileForm } from './ProfileForm';
-import { RadioButton, RadioButtonGroup } from '../common/CommonComp';
+import MaterialTimePicker from '../common/MaterialTimePicker';
+import MaterialDatePicker from '../common/MaterialDatePicker';
+import TextField from '@material-ui/core/TextField';
+
 
 const SignupSchema = Yup.object().shape({
   firstname: Yup.string()
@@ -76,30 +77,7 @@ class BookAnEvent extends React.Component {
   // }
 
   render() {
-    let firstname='';
-    let lastname='';
-    let email='';
-    let id='';
-    let gender='';
-    let lineid='';
-    let address='';
-  if (this.props.profiledata === null){
-      firstname=''; 
-      lastname='';
-      email='';
-      id='';
-      gender='';
-      lineid='';
-      address='';
-    }else{
-      id=this.props.profiledata.id; 
-      firstname=this.props.profiledata.firstname; 
-      lastname=this.props.profiledata.lastname;
-      email=this.props.profiledata.email;
-      gender=this.props.profiledata.gender;
-      lineid=this.props.profiledata.lineid;
-      address=this.props.profiledata.address;
-    }
+    
     return (
     <div>
       <h1>My Profile</h1>
@@ -107,13 +85,15 @@ class BookAnEvent extends React.Component {
       <br/>
       <Formik
         initialValues={{
-          id: id,
-          firstname: firstname,
-          lastname: lastname,
-          email: email,
-          gender: gender,
-          lineid: lineid,
-          address: address
+          eventName: '',
+          eventSports: '',
+          eventPremiseId: '',
+          eventDate: '',
+          eventStartTime: '',
+          eventEndTime: '',
+          eventPrivate: '',
+          eventExpectedMembers: '',
+          eventInviteSent: '',
         }}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
@@ -139,96 +119,53 @@ class BookAnEvent extends React.Component {
           return (
             //  {({ errors, touched }) => (
             <form onSubmit={handleSubmit}>
-                <input type="hidden" name="id" defaultValue={id}/>
                 <input type="hidden" name="history" defaultValue={this.props.history}/>
-                <div> First Name
-                    <input name="firstname" 
-                    type= "text" 
-                    // value={values.firstName} 
-                    defaultValue={firstname} 
+                <div> 
+                    <TextField
+                    id="eventname"
+                    required
+                    placeholder="Event Name"
+                    // className={classes.textField}
+                    margin="normal"
                     onChange={handleChange} 
                     onBlur={handleBlur}
                     />
-                    {errors.firstname && touched.firstname ? (
-                        <div>{errors.firstName}</div>
+                    {errors.eventname && touched.eventname ? (
+                        <div>{errors.eventname}</div>
                     ) : null}
                 </div> 
-                 <div> Last Name
-                    <input name="lastname" 
-                    type= "text" 
-                    // value={values.lastName} 
-                    defaultValue={lastname} 
+                <div>  
+                    <TextField
+                    id="eventdesc"
+                    // label="Event Description"
+                    placeholder="Event Description"
+                    multiline
+                    // className={classes.textField}
+                    margin="normal"
                     onChange={handleChange} 
-                    onBlur={handleBlur}/>
-                    {errors.lastname && touched.lastname ? (
-                        <div>{errors.lastName}</div>
-                    ) : null}
-                </div>
-                <div> Email
-                    <input name="email" 
-                    type="email" 
-                    // value={values.email} 
-                    defaultValue={email}
-                    onChange={handleChange} 
-                    onBlur={handleBlur}/>
-                    {errors.email && touched.email ? <div>{errors.email}</div> : null}
+                    onBlur={handleBlur}
+                    />
                 </div>
                 <div> 
-                    <RadioButtonGroup
-                      id="gender"
-                      label="Gender"
-                      // value={values.gender}
-                      // error={errors.gender}
-                      // touched={touched.gender}
-                      onChange={handleChange} 
-                      onBlur={handleBlur}
-                      >
-                      <Field
-                        component={RadioButton}
-                        name="gender"
-                        id="male"
-                        label="Male"
-                        onChange={handleChange} 
-                        onBlur={handleBlur}
-                        />
-                      <Field
-                        component={RadioButton}
-                        name="gender"
-                        id="female"
-                        label="Female"
-                        onChange={handleChange} 
-                        onBlur={handleBlur}
-                        />
-                      <Field
-                        component={RadioButton}
-                        name="gender"
-                        id="na"
-                        label="Not Preffered to Say"
-                        onChange={handleChange} 
-                        onBlur={handleBlur}
-                        />
-                    </RadioButtonGroup>
-                    {errors.gender && touched.gender ? <div>{errors.gender}</div> : null}
-                </div>
-                <div> LiNE ID 
-                    <input name="lineid" 
-                    type="text" 
-                    // value={values.line} 
-                    defaultValue={lineid}
+                <TextField
+                    id="expectnumber"
+                    required
+                    placeholder="Expected Participants"
+                    // className={classes.textField}
+                    margin="normal"
                     onChange={handleChange} 
-                    onBlur={handleBlur}/>
-                    {errors.line && touched.line ? <div>{errors.line}</div> : null}
+                    onBlur={handleBlur}
+                    />
+                    {errors.expectnumber && touched.expectnumber ? <div>{errors.expectnumber}</div> : null}
                 </div>
-                <div> Address 
-                    <input name="address" 
-                    type="textarea" 
-                    rows="4" cols="50" 
-                    // value={values.address} 
-                    defaultValue={address}
-                    onFocus= {this.geolocate()}
-                    onChange={handleChange} 
-                    onBlur={handleBlur}/>
-                    {errors.address && touched.address ? <div>{errors.address}</div> : null}
+                <div>
+                    <MaterialDatePicker label="Event Date"/>
+                </div>
+                <div>
+                    <MaterialTimePicker label="Start Time"/>
+                </div>
+                <div>
+                    <MaterialTimePicker label="End Time"/>
                 </div>
                 <div>
                     <button type="button" className="outline" onClick={handleReset} disabled={!dirty || isSubmitting}>

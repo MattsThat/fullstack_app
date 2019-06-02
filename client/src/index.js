@@ -11,13 +11,13 @@ import loginReducer from './reducer/loginReducer';
 import authReducer from './reducer/authReducer';
 import headerReducer from './reducer/headerReducer';
 import thunk from 'redux-thunk';
-import { reducer as formReducer } from 'redux-form';
+// import { reducer as formReducer } from 'redux-form';
 
 const rootReducer = combineReducers({
   login : loginReducer,
   auth : authReducer,
-  header : headerReducer,
-  form : formReducer
+  header : headerReducer
+  // form : formReducer
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
