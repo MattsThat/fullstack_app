@@ -10,7 +10,7 @@ import PlacesAutocomplete, {
 import Login from './../Login/Login';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../actions/loginActions';
-import classes from './navigation.css';
+import classes from '../../static/css/navigation.css';
 
 
 class Header extends React.Component {
@@ -41,17 +41,27 @@ class Header extends React.Component {
     // console.log("displayModal",displayModal);
     return(
       // <div className="d-flex flex-row-reverse bd-highlight navbar-light" styles="font-family:Verdana;">
-      <div className={classes.navigation}>
-          <li>                      
+      <div className="navigation">
+      <div class="p-2 bd-highlight">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+          <li class="nav-item">                      
             <Button onClick={this.props.onLoginMenu}>Login</Button>
           </li>
-          <li>
+        </ul>
+      </div>
+      <div class="p-2 bd-highlight">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+          <li class="nav-item">
             {/* <NavLink to='/' onClick={this.callme} activeStyle={{fontWeight: "bold",color: "red"}}>
                 Signup
               </NavLink> */}
             <Button onClick={this.props.onPersonalSignupMenu}>Signup</Button>
           </li>
-          <li>
+        </ul>
+      </div>
+      <div class="p-2 bd-highlight">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+          <li class="nav-item">
             {/* <Link to={{
               pathname: "/",
               //search: "?host=y",
@@ -65,6 +75,9 @@ class Header extends React.Component {
             </Link> */}
             <Button onClick={this.props.onHostSignUpMenu}>Become a Host</Button>
           </li>
+        </ul>
+      </div>
+      <div class="p-2 flex-grow-1 bd-highlight">
           <PlacesAutocomplete
             value={this.state.address}
             onChange={this.handleChange}
@@ -102,11 +115,16 @@ class Header extends React.Component {
               </div>
             )}
           </PlacesAutocomplete>
-          <li>
+      </div>
+      <div class="p-2 flex-grow-1 bd-highlight">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+          <li class="nav-item">
             <Link to='/'>
                 Life is Sports!!
             </Link>
           </li>
+        </ul>
+      </div>
       {displayModal}
     </div>
       );//end of return

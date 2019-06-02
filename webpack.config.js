@@ -67,11 +67,21 @@ module.exports = {
         query: {
             presets: ['react']
         }
-      },
-      {
-        test: /\.scss$/,
-        loader: 'style!css!sass!sass-resources'
       },*/
+      // {
+      //   test: /\.scss$/,
+      //   use: [
+      //     {
+      //       loader: "style-loader" // creates style nodes from JS strings
+      //     },
+      //     {
+      //       loader: "css-loader" // translates CSS into CommonJS
+      //     },
+      //     {
+      //       loader: "sass-loader" // compiles Sass to CSS
+      //     }
+      //   ]
+      // },
       {
         test: /\.html$/,
         loader: "file-loader?name=[name].[ext]",

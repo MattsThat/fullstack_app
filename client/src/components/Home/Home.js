@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
 import CardGrid from './CardGrid';
 import Grid from '@material-ui/core/Grid';
-// import Header from '../Header/Header';
 import CarouselHP from './carouselhp'
-import classes from './Home.css'
+import classes from '../Header/navigation.css'
 import { connect } from 'react-redux';
-// import LoggedInHeader from './../Header/LoggedInHeader';
 
 class Home extends Component{
 
@@ -19,7 +17,7 @@ class Home extends Component{
     // let header = this.props.isAuth ? <Header props={this.props}/> : <LoggedInHeader/>
     // let header = <Header props={this.props}/>
     return(
-        <div className={classes.root}>
+        <div className={classes.navigation}>
         <Grid container spacing={24}>
           <Grid item xs={12}>
           {/* {header} */}
