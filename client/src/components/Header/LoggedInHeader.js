@@ -1,15 +1,9 @@
 
 import  React  from 'react';
-import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 import { withRouter } from 'react-router-dom';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import Grow from '@material-ui/core/Grow';
-import Paper from '@material-ui/core/Paper';
-import Popper from '@material-ui/core/Popper';
-import MenuItem from '@material-ui/core/MenuItem';
-import MenuList from '@material-ui/core/MenuList';
+import Link from '@material-ui/core/Link';
 import PlacesAutocomplete, {
     geocodeByAddress,
     getLatLng,
@@ -37,7 +31,7 @@ handleSelect = address => {
 };
 
 handleToggle = () => {
-this.setState(state => ({ open: !state.open }));
+    this.setState(state => ({ open: !state.open }));
 };
 
 handleClose = event => {
@@ -48,27 +42,22 @@ handleClose = event => {
 };
 
 handleBookAPlace = (event) => {
-    // console.log('this.props=',this.props);
     this.props.onBookAPlace(this.props);
-    this.handleClose(event);
+    // this.handleClose(event);
 }
-
+handleGoToHome = (event) =>{
+    this.props.onGoToHome(this.props);
+}
 handleBookAnEvent = (event) => {
-    console.log('this called');
     this.props.onBookAnEvent(this.props);
-    this.handleClose(event);
 }
 
 handleClickMyProfile = (event) => {
-    // console.log('handleClickMyProfile this.props=',this.props);
     this.props.onMyProfile(this.props);
-    this.handleClose(event);
 }
 
 handleClickLogout = (event) => {
-    // console.log('this.props=',this.props);
     this.props.onLogout(this.props);
-    this.handleClose(event);
 }
 
 render(){
@@ -80,115 +69,85 @@ render(){
     //     showModal = this.state.visible ? <Login display="true" show={this.state.visible}/> : null
     // // console.log("this one",showModal);
     return(
-    <div className="d-flex flex-row-reverse bd-highlight navbar-light" styles="font-family:Verdana;">
-    <div class="p-2 bd-highlight">
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-        <li class="nav-item">                      
-            <Button buttonRef={node => {
-                    this.anchorEl = node;
-                }}
-                aria-owns={open ? 'simple-menu' : undefined}
-                aria-haspopup="true"
-                onClick={this.handleToggle}>
-                {this.props.nickname} Account
-            </Button>
-            <Popper open={open} anchorEl={this.anchorEl} transition disablePortal>
-            {({ TransitionProps, placement }) => (
-              <Grow
-                {...TransitionProps}
-                id="simple-menu"
-                style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}>
-                <Paper>
-                  <ClickAwayListener onClickAway={this.handleClose}>
-                    <MenuList>
-                      <MenuItem onClick={this.handleClickMyProfile}>Profile</MenuItem>
-                      <MenuItem onClick={this.handleClickLogout}>Logout</MenuItem>
-                    </MenuList>
-                  </ClickAwayListener>
-                </Paper>
-              </Grow>
-            )}
-          </Popper>        
-        </li>
-        </ul>
-    </div>
-    <div class="p-2 bd-highlight">
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-        <li class="nav-item">
-            {/* <NavLink to='/' onClick={this.callme} activeStyle={{fontWeight: "bold",color: "red"}}>
-                Signup
-            </NavLink> */}
-            <Button onClick={this.handleFriends}>Friends</Button>
-        </li>
-        </ul>
-    </div>
-    <div class="p-2 bd-highlight">
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-        <li class="nav-item">
-            {/* <NavLink to='/' onClick={this.callme} activeStyle={{fontWeight: "bold",color: "red"}}>
-                Signup
-            </NavLink> */}
-            <Button onClick={this.handleBookAPlace}>Book a Place</Button>
-        </li>
-        </ul>
-    </div>
-    <div class="p-2 bd-highlight">
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-        <li class="nav-item">
-            <Button onClick={this.handleBookAnEvent}>Book an Event</Button>
-        </li>
-        </ul>
-    </div>
-    <div class="p-2 flex-grow-1 bd-highlight">
-        <PlacesAutocomplete
-            value={this.state.address}
-            onChange={this.handleChange}
-            onSelect={this.handleSelect}>
-            {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-              <div>
-                <input
-                  {...getInputProps({
-                    placeholder: 'Search Places ...',
-                    className: 'location-search-input',
-                  })}
-                />
-                <div className="autocomplete-dropdown-container">
-                  {loading && <div>Loading...</div>}
-                  {suggestions.map(suggestion => {
-                    const className = suggestion.active
-                      ? 'suggestion-item--active'
-                      : 'suggestion-item';
-                    // inline style for demonstration purpose
-                    const style = suggestion.active
-                      ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                      : { backgroundColor: '#ffffff', cursor: 'pointer' };
-                    return (
-                      <div
-                        {...getSuggestionItemProps(suggestion, {
-                          className,
-                          style,
-                        })}
-                      >
-                        <span>{suggestion.description}</span>
-                      </div>
-                    );
-                  })}
+        <div>
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+            <Link class="nav-link bg-primary" onClick={this.handleGoToHome}>Life is Sports<span class="sr-only">(current)</span></Link>
+            {/* <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button> */}
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <form class="form-inline mx-auto my-2 my-lg-0">
+          <PlacesAutocomplete 
+              value={this.state.address}
+              onChange={this.handleChange}
+              onSelect={this.handleSelect}>
+              {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                <div>
+                  <input
+                    {...getInputProps({
+                      placeholder: 'Search Places ...',
+                      className: 'location-search-input form-control mr-sm-2',
+                    })}
+                  />
+                  <div className="autocomplete-dropdown-container">
+                    {loading && <div>Loading...</div>}
+                    {suggestions.map(suggestion => {
+                      const className = suggestion.active
+                        ? 'suggestion-item--active'
+                        : 'suggestion-item';
+                      // inline style for demonstration purpose
+                      const style = suggestion.active
+                        ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                        : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                      return (
+                        <div
+                          {...getSuggestionItemProps(suggestion, {
+                            className,
+                            style,
+                          })}
+                        >
+                          <span>{suggestion.description}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
+              )}
+              </PlacesAutocomplete>
+              {/* <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> */}
+          </form>
+          {/* <ul class="navbar-nav ml-auto"> */}
+          <ul class="nav nav-tabs ml-auto bg-primary">
+          <li class="nav-item active">
+              <Link class="nav-link" onClick={this.handleFriends}>Friends<span class="sr-only">(current)</span></Link>
+            </li>
+            <li class="nav-item active">
+              {/* <a class="nav-link" href={this.props.onLoginMenu}>Login <span class="sr-only">(current)</span></a> */}
+              <Link class="nav-link" onClick={this.handleBookAPlace}>Book a Place<span class="sr-only">(current)</span></Link>
+            </li>
+            <li class="nav-item active">
+              <Link class="nav-link" onClick={this.handleBookAnEvent}>Book an Event<span class="sr-only">(current)</span></Link>
+            </li>
+            <li class="nav-item dropdown">
+              {/* <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown
+              </a> */}
+              <Link class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onClick={this.handleToggle}>{this.props.nickname} Account</Link>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <Link class="dropdown-item" onClick={this.handleClickMyProfile}>Profile<span class="sr-only">(current)</span></Link>
+                <Link class="dropdown-item" onClick={this.handleClickLogout}>Logout<span class="sr-only">(current)</span></Link>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Sample</a>
               </div>
-            )}
-        </PlacesAutocomplete>
-    </div>
-    <div class="p-2 flex-grow-1 bd-highlight">
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-        <li class="nav-item">
-            <Button onClick={this.props.onGoToHome}>
-                Life is Sports!!
-            </Button>
-        </li>
-        </ul>
-    </div>
-    {this.props.hostsignup}
-    </div>
+            </li>
+          </ul>
+        </div>
+        </nav>
+        <div>
+            {this.props.hostsignup}
+        </div>
+        </div>  
     );//end of return
 }//end of render
 }//end of class
@@ -207,9 +166,9 @@ const mapDispatchToProps = dispatch => {
         onSearch: () => dispatch(actions.search()),
         onBookAnEvent : (props) => dispatch(actions.bookAnEvent(props)),
         onBookAPlace : (props) => dispatch(actions.bookAPlace(props)),
-        onFriends : () => dispatch(actions.myFriends()),
+        onFriends : (props) => dispatch(actions.myFriends(props)),
         onMyProfile : (props) => dispatch(actions.myProfile(props)),
-        onGoToHome : () => dispatch(actions.goToHome()),
+        onGoToHome : (props) => dispatch(actions.goToHome(props)),
         onLogout : (props) => dispatch(actions.authLogout(props))
     };
 };

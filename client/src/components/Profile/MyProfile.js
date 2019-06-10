@@ -1,12 +1,10 @@
 import React from 'react';
 import { Formik, Field } from 'formik';
 import * as Yup from 'yup';
-// import { Input, Datepicker, PhoneInput, Radio, Checkbox } from 'react-formik-ui';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 import { withRouter } from 'react-router-dom';
 import './../../static/css/profileform.css'; 
-// import { ProfileForm } from './ProfileForm';
 // import { RadioButton, RadioButtonGroup } from '../common/CommonComp';
 import TextField from '@material-ui/core/TextField';
 import Radio from '@material-ui/core/Radio';
@@ -125,7 +123,7 @@ class MyProfile extends React.Component {
         }}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
-            // console.log('render this.props.values=',this.props.values);
+            console.log('profile update this.props.values=',values);
             // alert(JSON.stringify(values, null, 2));
             this.props.onProfileSubmit(this.props,values);
             setSubmitting(false);
@@ -197,8 +195,9 @@ class MyProfile extends React.Component {
                       <RadioGroup
                         aria-label="Gender"
                         name="gender"
+                        id="gender"
                         // className={classes.group}
-                        value="female"
+                        defaultValue={gender}
                         onChange={handleChange}
                         onBlur={handleBlur}
                       >

@@ -73,6 +73,7 @@ router.post("/putUserInfo", (req, res) => {
   data.firstname = firstname;
   data.lastname = lastname;
   data.email = email;
+  data.gender = gender;
   data.lineid = lineid;
   data.address = address;
   console.log('before save data',data);

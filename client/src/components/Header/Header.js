@@ -1,17 +1,15 @@
 
 import  React  from 'react';
-import {  Link, NavLink } from 'react-router-dom';
+// import {  Link, NavLink } from 'react-router-dom';
+import Link from '@material-ui/core/Link';
 //import styles from './Header.css';
-import Button from '@material-ui/core/Button';
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from 'react-places-autocomplete';
-import Login from './../Login/Login';
+import Login from '../Login/Login';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../actions/loginActions';
-import classes from './navigation.css';
-
 
 class Header extends React.Component {
 
@@ -40,32 +38,15 @@ class Header extends React.Component {
       displayModal = this.props.showModal ? <Login/> : null
     // console.log("displayModal",displayModal);
     return(
-      // <div className="d-flex flex-row-reverse bd-highlight navbar-light" styles="font-family:Verdana;">
-      <div className={classes.navigation}>
-          <li>                      
-            <Button onClick={this.props.onLoginMenu}>Login</Button>
-          </li>
-          <li>
-            {/* <NavLink to='/' onClick={this.callme} activeStyle={{fontWeight: "bold",color: "red"}}>
-                Signup
-              </NavLink> */}
-            <Button onClick={this.props.onPersonalSignupMenu}>Signup</Button>
-          </li>
-          <li>
-            {/* <Link to={{
-              pathname: "/",
-              //search: "?host=y",
-              //hash: "#the-host",
-              onClick:{this.hostsignup},
-              state: { 
-                signup : true,
-                }
-              }}>
-              Become a Host
-            </Link> */}
-            <Button onClick={this.props.onHostSignUpMenu}>Become a Host</Button>
-          </li>
-          <PlacesAutocomplete
+      <div>
+      <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+      <Link class="nav-link bg-primary" href='/'>Life is Sports</Link>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <form class="form-inline mx-auto my-2 my-lg-0">
+        <PlacesAutocomplete 
             value={this.state.address}
             onChange={this.handleChange}
             onSelect={this.handleSelect}>
@@ -74,7 +55,7 @@ class Header extends React.Component {
                 <input
                   {...getInputProps({
                     placeholder: 'Search Places ...',
-                    className: 'location-search-input',
+                    className: 'location-search-input form-control mr-sm-2',
                   })}
                 />
                 <div className="autocomplete-dropdown-container">
@@ -101,14 +82,29 @@ class Header extends React.Component {
                 </div>
               </div>
             )}
-          </PlacesAutocomplete>
-          <li>
-            <Link to='/'>
-                Life is Sports!!
-            </Link>
+            </PlacesAutocomplete>
+            {/* <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> */}
+        </form>
+        {/* <ul class="navbar-nav ml-auto"> */}
+        <ul class="nav nav-tabs ml-auto bg-primary">
+          <li class="nav-item active">
+            {/* <a class="nav-link" href={this.props.onLoginMenu}>Login <span class="sr-only">(current)</span></a> */}
+            <Link class="nav-link" onClick={this.props.onLoginMenu}>Login<span class="sr-only">(current)</span></Link>
           </li>
-      {displayModal}
-    </div>
+          <li class="nav-item active">
+            <Link class="nav-link" onClick={this.props.onPersonalSignupMenu}>Signup<span class="sr-only">(current)</span></Link>
+          </li>
+          <li class="nav-item active">
+            <Link class="nav-link" onClick={this.props.onHostSignUpMenu}>Become a Host<span class="sr-only">(current)</span></Link>
+          </li>
+        </ul>
+      </div>
+      </nav>
+      <div>
+        {displayModal}
+      </div>
+      </div>  
       );//end of return
   }//end of render
 }//end of class

@@ -109,7 +109,8 @@ export const myProfile = (props) => {
     };
 }
 
-export const goToHome = () => {
+export const goToHome = (props) => {
+    props.history.push('/');
     return {
         type: actionTypes.GO_TO_HOME,
     };

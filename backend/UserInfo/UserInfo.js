@@ -11,6 +11,7 @@ const UserInfo = new Schema(
     firstname: String,
     lastname: String,
     email: String,
+    gender: String,
     lineid: String,
     phone: String,
     country: String,

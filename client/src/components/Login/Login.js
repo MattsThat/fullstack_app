@@ -5,7 +5,7 @@ import ReactModalLogin from 'react-modal-login';
 import { facebookConfig, googleConfig } from './Social-config.js';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import * as actions from '../../actions/index';
+import * as actions from '../../actions/index.js';
 
 class Login extends Component {
 

@@ -4,40 +4,49 @@ import Grid from '@material-ui/core/Grid';
 import CarouselHP from './carouselhp'
 import classes from '../Header/navigation.css'
 import { connect } from 'react-redux';
+// import { makeStyles } from '@material-ui/core/styles';
+// import Paper from '@material-ui/core/Paper';
+
+// const useStyles = makeStyles(theme => ({
+//   root: {
+//     flexGrow: 1,
+//   },
+//   paper: {
+//     padding: theme.spacing(2),
+//     textAlign: 'center',
+//     color: theme.palette.text.secondary,
+//   },
+// }));
+
+// const classes = useStyles();
 
 class Home extends Component{
-
   constructor(props){
     super(props);
     //console.log(this.props);
   }
 
   render(){
-    
+
     // let header = this.props.isAuth ? <Header props={this.props}/> : <LoggedInHeader/>
     // let header = <Header props={this.props}/>
     return(
         <div className={classes.navigation}>
-        <Grid container spacing={24}>
-          <Grid item xs={12}>
-          {/* {header} */}
-          </Grid>
-          <Grid item xs={1}/>
-          <Grid item xs={10} >
+        <Grid container spacing={1}>
+          <Grid item xs>
             <CarouselHP/>
           </Grid>
-          <Grid item xs={1}/>
-          <Grid item xs={1}/>
-          <Grid item xs={3}>
-            <CardGrid title="1" desc="11111"/>
-          </Grid>
-          <Grid item xs={4}>
-            <CardGrid  title="2" desc="11111"/>
-          </Grid>
-          <Grid item xs={3}>
-          <Grid item xs={1}/>
-            <CardGrid title="3" desc="11111"/>
-          </Grid>
+        </Grid>
+        <Grid container spacing={1}>  
+            <Grid item xs>
+              <CardGrid title="1" desc="11111"/>
+            </Grid>
+            <Grid item xs>
+              <CardGrid  title="2" desc="11111"/>
+            </Grid>
+            <Grid item xs>
+              <CardGrid title="3" desc="11111"/>
+            </Grid>
         </Grid>
       </div>
     );
