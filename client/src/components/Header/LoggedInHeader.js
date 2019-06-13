@@ -72,9 +72,9 @@ render(){
         <div>
         <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
             <Link class="nav-link bg-primary" onClick={this.handleGoToHome}>Life is Sports<span class="sr-only">(current)</span></Link>
-            {/* <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
-            </button> */}
+            </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <form class="form-inline mx-auto my-2 my-lg-0">
           <PlacesAutocomplete 

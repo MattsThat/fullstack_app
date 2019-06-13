@@ -120,21 +120,22 @@ class BookAnEvent extends React.Component {
             //  {({ errors, touched }) => (
             <form onSubmit={handleSubmit}>
                 <input type="hidden" name="history" defaultValue={this.props.history}/>
-                <div> 
-                    <TextField
-                    id="eventname"
-                    required
-                    placeholder="Event Name"
-                    // className={classes.textField}
-                    margin="normal"
-                    onChange={handleChange} 
-                    onBlur={handleBlur}
-                    />
-                    {errors.eventname && touched.eventname ? (
-                        <div>{errors.eventname}</div>
-                    ) : null}
-                </div> 
-                <div>  
+                <div className="form-row">
+                    <div className="form-group col-md-4">
+                      <TextField
+                      id="eventname"
+                      required
+                      placeholder="Event Name"
+                      // className={classes.textField}
+                      margin="normal"
+                      onChange={handleChange} 
+                      onBlur={handleBlur}
+                      />
+                      {errors.eventname && touched.eventname ? (
+                          <div>{errors.eventname}</div>
+                      ) : null}
+                    </div> 
+                  <div className="form-group col-md-4">
                     <TextField
                     id="eventdesc"
                     // label="Event Description"
@@ -145,9 +146,9 @@ class BookAnEvent extends React.Component {
                     onChange={handleChange} 
                     onBlur={handleBlur}
                     />
-                </div>
-                <div> 
-                <TextField
+                  </div>
+                  <div className="form-group col-md-4">
+                    <TextField
                     id="expectnumber"
                     required
                     placeholder="Expected Participants"
@@ -157,17 +158,20 @@ class BookAnEvent extends React.Component {
                     onBlur={handleBlur}
                     />
                     {errors.expectnumber && touched.expectnumber ? <div>{errors.expectnumber}</div> : null}
+                  </div>
+                </div>  
+                <div className="form-row">
+                    <div className="form-group col-md-4">
+                      <MaterialDatePicker label="Event Date"/>
+                    </div>
+                    <div className="form-group col-md-4">
+                      <MaterialTimePicker label="Start Time"/>
+                    </div>
+                    <div className="form-group col-md-4">
+                      <MaterialTimePicker label="End Time"/>
+                    </div>
                 </div>
-                <div>
-                    <MaterialDatePicker label="Event Date"/>
-                </div>
-                <div>
-                    <MaterialTimePicker label="Start Time"/>
-                </div>
-                <div>
-                    <MaterialTimePicker label="End Time"/>
-                </div>
-                <div>
+                <div className="form-row">
                     <button type="button" className="outline" onClick={handleReset} disabled={!dirty || isSubmitting}>
                       Reset
                     </button>

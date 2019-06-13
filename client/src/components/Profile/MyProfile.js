@@ -147,100 +147,108 @@ class MyProfile extends React.Component {
             <form onSubmit={handleSubmit}>
                 <input type="hidden" name="id" defaultValue={id}/>
                 <input type="hidden" name="history" defaultValue={this.props.history}/>
-                <div>
-                    <TextField
-                    id="firstname"
-                    required
-                    placeholder="First Name"
-                    defaultValue={firstname} 
-                    // className={classes.textField}
-                    margin="normal"
-                    onChange={handleChange} 
-                    onBlur={handleBlur}
-                    />
-                    {errors.firstname && touched.firstname ? (
-                        <div>{errors.firstname}</div>
-                    ) : null}
-                </div> 
-                 <div>  
-                    <TextField
-                    id="lastname"
-                    required
-                    placeholder="Last Name"
-                    defaultValue={lastname} 
-                    // className={classes.textField}
-                    margin="normal"
-                    onChange={handleChange} 
-                    onBlur={handleBlur}
-                    />
-                    {errors.lastname && touched.lastname ? (
-                        <div>{errors.lastName}</div>
-                    ) : null}
-                </div>
-                <div> 
-                    <TextField
-                    id="email"
-                    required
-                    placeholder="Email"
-                    defaultValue={email} 
-                    // className={classes.textField}
-                    margin="normal"
-                    onChange={handleChange} 
-                    onBlur={handleBlur}
-                    />
-                    {errors.email && touched.email ? <div>{errors.email}</div> : null}
-                </div>
-                <div> 
-                      <FormLabel component="legend">Gender</FormLabel>
-                      <RadioGroup
-                        aria-label="Gender"
-                        name="gender"
-                        id="gender"
-                        // className={classes.group}
-                        defaultValue={gender}
-                        onChange={handleChange}
+                <div className="form-row">
+                    <div className="form-group col-md-6">
+                        <TextField
+                        id="firstname"
+                        required
+                        placeholder="First Name"
+                        defaultValue={firstname} 
+                        // className={classes.textField}
+                        margin="normal"
+                        onChange={handleChange} 
                         onBlur={handleBlur}
-                      >
-                      <FormControlLabel value="female" control={<Radio />} label="Female" />
-                      <FormControlLabel value="male" control={<Radio />} label="Male" />
-                      <FormControlLabel value="other" control={<Radio />} label="Not Preferred to say" />
-                      {/* <FormControlLabel
-                        defaultValue="disabled"
-                        disabled
-                        control={<Radio />}
-                        label="(Disabled option)"
-                      /> */}
-                    </RadioGroup>
-                    {errors.gender && touched.gender ? <div>{errors.gender}</div> : null}
+                        />
+                        {errors.firstname && touched.firstname ? (
+                            <div>{errors.firstname}</div>
+                        ) : null}
+                    </div> 
+                    <div className="form-group col-md-6">  
+                        <TextField
+                        id="lastname"
+                        required
+                        placeholder="Last Name"
+                        defaultValue={lastname} 
+                        // className={classes.textField}
+                        margin="normal"
+                        onChange={handleChange} 
+                        onBlur={handleBlur}
+                        />
+                        {errors.lastname && touched.lastname ? (
+                            <div>{errors.lastName}</div>
+                        ) : null}
+                    </div>
+                  </div>
+                  <div className="form-row">
+                    <div className="form-group col-md-6"> 
+                        <TextField
+                        id="email"
+                        required
+                        placeholder="Email"
+                        defaultValue={email} 
+                        // className={classes.textField}
+                        margin="normal"
+                        onChange={handleChange} 
+                        onBlur={handleBlur}
+                        />
+                        {errors.email && touched.email ? <div>{errors.email}</div> : null}
+                    </div>
+                    <div className="form-group col-md-6">
+                        <TextField
+                        id="lineid"
+                        required
+                        placeholder="LiNE ID"
+                        defaultValue={lineid} 
+                        // className={classes.textField}
+                        margin="normal"
+                        onChange={handleChange} 
+                        onBlur={handleBlur}
+                        />
+                        {errors.lineid && touched.lineid ? <div>{errors.lineid}</div> : null}
+                    </div>
                 </div>
-                <div>
-                    <TextField
-                    id="lineid"
-                    required
-                    placeholder="LiNE ID"
-                    defaultValue={lineid} 
-                    // className={classes.textField}
-                    margin="normal"
-                    onChange={handleChange} 
-                    onBlur={handleBlur}
-                    />
-                    {errors.lineid && touched.lineid ? <div>{errors.lineid}</div> : null}
+                <div className="form-row">
+                  <div className="form-group col-md-6"> 
+                      <TextField
+                      id="address"
+                      multiline
+                      placeholder="Address"
+                      defaultValue={address} 
+                      // className={classes.textField}
+                      margin="normal"
+                      onFocus= {this.geolocate()}
+                      onChange={handleChange} 
+                      onBlur={handleBlur}
+                      />
+                      {errors.address && touched.address ? <div>{errors.address}</div> : null}
+                  </div>
                 </div>
-                <div>
-                    <TextField
-                    id="address"
-                    multiline
-                    placeholder="Address"
-                    defaultValue={address} 
-                    // className={classes.textField}
-                    margin="normal"
-                    onFocus= {this.geolocate()}
-                    onChange={handleChange} 
-                    onBlur={handleBlur}
-                    />
-                    {errors.address && touched.address ? <div>{errors.address}</div> : null}
+                <div className="form-row">
+                  <div className="form-group col-md-6"> 
+                        <FormLabel component="legend">Gender</FormLabel>
+                        <RadioGroup
+                          aria-label="Gender"
+                          name="gender"
+                          id="gender"
+                          // className={classes.group}
+                          defaultValue={gender}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                        >
+                        <FormControlLabel value="female" control={<Radio />} label="Female" />
+                        <FormControlLabel value="male" control={<Radio />} label="Male" />
+                        <FormControlLabel value="other" control={<Radio />} label="Not Preferred to say" />
+                        {/* <FormControlLabel
+                          defaultValue="disabled"
+                          disabled
+                          control={<Radio />}
+                          label="(Disabled option)"
+                        /> */}
+                      </RadioGroup>
+                      {errors.gender && touched.gender ? <div>{errors.gender}</div> : null}
+                  </div>
                 </div>
-                <div>
+                <div className="form-row">
                     <button type="button" className="outline" onClick={handleReset} disabled={!dirty || isSubmitting}>
                       Reset
                     </button>
