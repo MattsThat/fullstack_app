@@ -27,12 +27,49 @@ export const loadMyProfile = (data) => {
     };
 };
 
+export const putEventDetails = () => {
+    return {
+        type: actionTypes.PUT_EVENT_DETAILS,
+    };
+}
+
+export const eventRegister =(props,values) =>{
+    console.log('on eventRegister props',props);
+    console.log('on eventRegister values',values);
+    return dispatch => {
+        axios.post('/eventdetails/putEventDetails',{
+            params:{
+                update:values
+            },
+            method: 'POST',
+            credentials: 'same-origin',
+            // body: JSON.stringify({id}),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }) //end of axios post
+        .then(response => {
+            if(response.data.success){
+                console.log('on eventRegister response.data if',response.data);
+                dispatch(putEventDetails());
+                props.history.push('/dashboard');
+            }else{
+                console.log('on eventRegister response.data else',response.data);
+                props.history.push('/');
+            }
+        })
+        .catch(err => {
+            console.log('eventRegister catch err',err);
+            props.history.push('/');
+        });
+    } //end of dispatch
+}//end of eventRegister
+
 export const updateProfileData = () => {
     return {
         type: actionTypes.MY_PROFILE_UPDATE,
     };
 }
-
 
 export const myProfileUpdate = (props,values) => {
     console.log('on myProfileUpdate props',props);
@@ -40,13 +77,6 @@ export const myProfileUpdate = (props,values) => {
     return dispatch => {
         axios.post('/userinfo/updateUserInfo',{
             params:{
-                // id: props.id,
-                // firstname: props.firstName,
-                // lastname: props.lastName,
-                // email: props.email,
-                // lineid: props.lineid,
-                // address: props.address,
-                // gender: props.gender
                 update:values
             },
             method: 'POST',

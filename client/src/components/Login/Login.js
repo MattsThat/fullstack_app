@@ -65,10 +65,10 @@ class Login extends Component {
     }// end of onLogin
     
     onRegisterClick(){
-        console.log('__onRegister__');
-        console.log('nickname: ' + document.querySelector('#login').value);
-        console.log('email: ' + document.querySelector('#email').value);
-        console.log('password: ' + document.querySelector('#password').value);    
+        // console.log('__onRegister__');
+        // console.log('nickname: ' + document.querySelector('#login').value);
+        // console.log('email: ' + document.querySelector('#email').value);
+        // console.log('password: ' + document.querySelector('#password').value);    
         const nickname = document.querySelector('#login').value; // nickname
         const email = document.querySelector('#email').value;
         const password = document.querySelector('#password').value;

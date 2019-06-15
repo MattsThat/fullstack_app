@@ -3,6 +3,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const logger = require("morgan");
 const LoginDetails = require("./LoginDetails");
+const UserInfo = require("./../UserInfo/UserInfo");
+
 const cors = require("cors"); 
 const mailer = require("nodemailer");
 const bcrypt = require('bcrypt');
@@ -16,7 +18,7 @@ const router = express.Router();
 router.get("/goToHome", (req, res) => {
   return res.json({success : true});
 });
-// this is our get method
+
 // this method fetches all available data in our database
 // router.get("/getLoginDetails", withAuth, (req, res) => {
 router.get("/getLoginDetails", (req, res) => {
@@ -26,12 +28,12 @@ router.get("/getLoginDetails", (req, res) => {
       return res.json({ success: false, error: err });
     }
     else{
-      console.log('data',data);
+      // console.log('data',data);
       return res.json({ success: true, data: data });
     }  
   });
 });
-// this is our update method
+
 // this method overwrites existing data in our database
 router.post("/updateLoginDetails", (req, res) => {
   const { id, update } = req.body;
@@ -40,7 +42,7 @@ router.post("/updateLoginDetails", (req, res) => {
     return res.json({ success: true });
   });
 });
-// this is our delete method
+
 // this method removes existing data in our database
 router.delete("/deleteLoginDetails", (req, res) => {
   const { id } = req.body;
@@ -49,7 +51,7 @@ router.delete("/deleteLoginDetails", (req, res) => {
     return res.json({ success: true });
   });
 });
-// this is our select method //withAuth,
+
 // this method selects existing data from our database
 router.get("/selectLoginDetails", (req, res) => {
   const username  = req.query.username;
@@ -84,9 +86,12 @@ router.get("/selectLoginDetails", (req, res) => {
     }//end of outer else
   });
 });
+
 // this method adds new host and individual data in our database
 router.post("/putLoginDetails", (req, res) => {
   let data = new LoginDetails();
+  let userdata = new UserInfo();
+
   const { id, hostsignup, nickname, username, password } = req.body;
   const saltRounds=10;
   const secret = "itsmevik";
@@ -112,11 +117,25 @@ router.post("/putLoginDetails", (req, res) => {
       const token = jwt.sign(payload, secret, {
         expiresIn: '3600'
       });
-      resdata = {...data, token:token,expiresIn:expiresIn}; 
+      resdata = {...data, token:token,expiresIn:expiresIn,nickname:nickname, hostsignup:data.hostsignup}; 
+      // console.log('after save resdata',resdata);
+      // return res.json({ success: true, data:resdata }); //dont want to return early.
+      }//end of else
+    } //
+  );//end of logininfo save
+  userdata.id = id;
+  userdata.nickname = nickname;
+  userdata.loginid = username;
+  userdata.email = username;
+  userdata.save(err => {
+    if (err) 
+      return res.json({ success: false, error: err });
+    else{
+      // console.log('before user info save resdata',resdata);
       return res.json({ success: true, data:resdata });
       }//end of else
     } //
-  );//end of save
+  );//end of userdata save
 });
 
 router.get("/sendemail",(req, res) => {

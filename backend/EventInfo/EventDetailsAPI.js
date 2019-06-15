@@ -1,15 +1,6 @@
-// const mongoose = require("mongoose");
-// const bodyParser = require("body-parser");
-// const logger = require("morgan");
-// const cors = require("cors"); 
-// const mailer = require("nodemailer");
-// const bcrypt = require('bcrypt');
-// const cookieParser = require('cookie-parser');
 const express = require("express");
-const UserInfo = require("./UserInfo");
+const EventDetails = require("./EventDetails");
 const jwt = require('jsonwebtoken');
-
-// const API_PORT = 3001;
 const app = express();
 const router = express.Router();
 
@@ -17,15 +8,29 @@ router.get("/goToHome", (req, res) => {
   return res.json({success : true});
 });
 
+// this method fetches all available data in our database
+router.get("/getEventDetails", (req, res) => {
+  EventDetails.find((err, data) => {
+      if (err) {
+        console.log(err);
+        return res.json({ success: false, error: err });
+      }
+      else{
+        // console.log('data',data);
+        return res.json({ success: true, data: data });
+      }  
+    });
+  });
+
 // this is our update method
 // this method overwrites existing data in our database
-router.post("/updateUserInfo", (req, res) => {
+router.post("/updateEventDetails", (req, res) => {
 //   console.log('req.body params ',req.body.params);
 //   console.log('req.body id ',req.body.params.update.id);
 //   console.log('req.body update data',req.body.params.update);
   const id = req.body.params.update.id;
   const update = req.body.params.update;
-  UserInfo.findOneAndUpdate(id, update, err => {
+  EventDetails.findOneAndUpdate(id, update, err => {
     if (err){
         console.log('findOneAndUpdate err ',err);
         return res.json({ success: false, error: err });
@@ -38,22 +43,20 @@ router.post("/updateUserInfo", (req, res) => {
 
 // this is our delete method
 // this method removes existing data in our database
-router.delete("/deleteUserInfo", (req, res) => {
+router.delete("/deleteEventDetails", (req, res) => {
   const { id } = req.body;
-  UserInfo.findOneAndDelete(id, err => {
+  EventDetails.findOneAndDelete(id, err => {
     if (err) return res.send(err);
     return res.json({ success: true });
   });
 });
 // this is our select method //withAuth,
 // this method selects existing data from our database
-router.get("/selectUserInfo", (req, res) => {
-    // console.log('id selectUserInfo',req.query.id);
+router.get("/selectEventDetails", (req, res) => {
+    // console.log('id selectEventDetails',req.query.id);
     const id  = req.query.id;
-    UserInfo.findOne({'id' : id}, function(err,data){
+    EventDetails.findOne({'id' : id}, function(err,data){
         if(err || data === null){
-        // console.log('findOne err',err);
-        // console.log('findOne data',data);
         resdata = {...data, error:'wrong userid'}; 
         // console.log('after data',resdata);
         return res.json({ success: false, data:resdata });
@@ -66,27 +69,22 @@ router.get("/selectUserInfo", (req, res) => {
 });
 
 // this method adds new host and individual data in our database
-router.post("/putUserInfo", (req, res) => {
-  let data = new UserInfo();
-  const { firstname, lastname, email, lineid, gender, address } = req.body;
-
-  data.firstname = firstname;
-  data.lastname = lastname;
-  data.email = email;
-  data.gender = gender;
-  data.lineid = lineid;
-  data.address = address;
+router.post("/putEventDetails", (req, res) => {
+  let data = new EventDetails();
+  const { eventid,eventname, eventdesc, startdate, enddate, eventowner, expectedpartipants } = req.body;
+  data.eventid = eventid;
+  data.eventname = eventname;
+  data.eventdesc = eventdesc;
+  data.startdate = startdate;
+  data.enddate = enddate;
+  data.eventowner = eventowner;
+  data.expectedpartipants = expectedpartipants;
   console.log('before save data',data);
   data.save(err => {
     if (err) 
       return res.json({ success: false, error: err });
     else{
-      let expiresIn = '3600';
-      const payload = { username };
-      const token = jwt.sign(payload, secret, {
-        expiresIn: '3600'
-      });
-      resdata = {...data, token:token,expiresIn:expiresIn}; 
+      resdata = {...data, eventid:eventid}; 
       return res.json({ success: true, data:resdata });
       }//end of else
     } //

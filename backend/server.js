@@ -2,11 +2,11 @@ const mongoose = require("mongoose");
 const express = require("express");
 const bodyParser = require("body-parser");
 const logger = require("morgan");
-const LoginDetails = require("./LoginInfo/LoginDetails");
+// const LoginDetails = require("./LoginInfo/LoginDetails");
 const cors = require("cors"); 
-const mailer = require("nodemailer");
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+// const mailer = require("nodemailer");
+// const bcrypt = require('bcrypt');
+// const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 
 const API_PORT = 3001;
@@ -36,6 +36,7 @@ app.use(cookieParser());
 app.use("/api", router);
 router.use('/login', require('./LoginInfo/LoginAPI')); 
 router.use('/userinfo', require('./UserInfo/UserInfoAPI')); 
+router.use('/eventdetails', require('./EventInfo/EventDetailsAPI')); 
 
 module.exports = router ;
 app.listen(API_PORT, () => console.log(`LISTENING ON PORT ${API_PORT}`));

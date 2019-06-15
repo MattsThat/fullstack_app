@@ -11,19 +11,14 @@ import TextField from '@material-ui/core/TextField';
 
 
 const SignupSchema = Yup.object().shape({
-  firstname: Yup.string()
+  eventname: Yup.string()
     .min(2, 'Too Short!')
     .max(50, 'Too Long!')
     .required('Required'),
-  lastname: Yup.string()
+  eventdesc: Yup.string()
     .min(2, 'Too Short!')
     .max(50, 'Too Long!')
-    .required('Required'),
-  email: Yup.string()
-    .email('Invalid email')
-    .required('Required'),
-  gender: Yup.string()
-    .required("Please select")
+    .required('Required')
 });
 
 class BookAnEvent extends React.Component {
@@ -48,34 +43,6 @@ class BookAnEvent extends React.Component {
     autocomplete.addListener('place_changed', fillInAddress);
   }
   
-  // Bias the autocomplete object to the user's geographical location,
-  // as supplied by the browser's 'navigator.geolocation' object.
-  geolocate() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(position) {
-        var geolocation = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        };
-        var circle = new google.maps.Circle(
-            {center: geolocation, radius: position.coords.accuracy});
-        // autocomplete.setBounds(circle.getBounds());
-      });
-    }
-  }//end of geolocate
-
-  // handleClose = event => {
-  //   if (this.anchorEl.contains(event.target)) {
-  //     return;
-  //   }
-  //   this.setState({ open: false });
-  // };
-  // handleProfileSubmit(){
-  //   console.log('handleProfileSubmit this.props=',this.props);
-  //   this.props.onProfileSubmit(this.props);
-  //   // this.handleClose(event);
-  // }
-
   render() {
     
     return (
@@ -85,21 +52,22 @@ class BookAnEvent extends React.Component {
       <br/>
       <Formik
         initialValues={{
-          eventName: '',
-          eventSports: '',
-          eventPremiseId: '',
-          eventDate: '',
-          eventStartTime: '',
-          eventEndTime: '',
-          eventPrivate: '',
-          eventExpectedMembers: '',
-          eventInviteSent: '',
+          eventbame: '',
+          eventdesc:'',
+          eventsports: '',
+          eventpremiseid: '',
+          eventdate: '',
+          eventstarttime: '',
+          eventendtime: '',
+          eventprivate: '',
+          expectnumber: '',
+          eventinvitesent: '',
         }}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
-            // console.log('render this.props.values=',this.props.values);
-            // alert(JSON.stringify(values, null, 2));
-            this.props.onProfileSubmit(this.props,values);
+            console.log('render this.props.values=',this.props.values);
+            alert(JSON.stringify(values, null, 2));
+            this.props.onEventSubmit(this.props,values);
             setSubmitting(false);
           }, 500);
         }}
@@ -161,14 +129,38 @@ class BookAnEvent extends React.Component {
                   </div>
                 </div>  
                 <div className="form-row">
-                    <div className="form-group col-md-4">
-                      <MaterialDatePicker label="Event Date"/>
+                    <div className="switch form-group col-md-4">
+                        <label>
+                            <input type="checkbox" id="eventprivate" checked/>Private
+                      </label>                    
+                    </div>
+                    <div className="switch form-group col-md-4">
+                        <label>
+                            <input type="checkbox" id="eventprivate" checked/>Invite Sent
+                      </label>                    
                     </div>
                     <div className="form-group col-md-4">
-                      <MaterialTimePicker label="Start Time"/>
+                      <TextField
+                      id="expectnumber"
+                      required
+                      placeholder="Expected Participants"
+                      // className={classes.textField}
+                      margin="normal"
+                      onChange={handleChange} 
+                      onBlur={handleBlur}
+                      />
+                      {errors.expectnumber && touched.expectnumber ? <div>{errors.expectnumber}</div> : null}
+                  </div>
+                </div>
+                <div className="form-row">
+                    <div className="form-group col-md-4">
+                      <MaterialDatePicker id="eventdate" label="Event Date"/>
                     </div>
                     <div className="form-group col-md-4">
-                      <MaterialTimePicker label="End Time"/>
+                      <MaterialTimePicker id="eventstarttime" label="Start Time"/>
+                    </div>
+                    <div className="form-group col-md-4">
+                      <MaterialTimePicker id="eventendtime" label="End Time"/>
                     </div>
                 </div>
                 <div className="form-row">
@@ -196,8 +188,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return{
-      onProfileSubmit : (props,values) => dispatch(actions.myProfileUpdate(props,values)),
-      // onGetProfile : (props) => dispatch(actions.getProfile(props)),
+      onEventSubmit : (props,values) => dispatch(actions.eventRegister(props,values)),
   };
 };
 

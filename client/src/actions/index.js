@@ -15,6 +15,7 @@ export {
     search,
     updateProfileData,
     myProfileUpdate,
-    myProfile
+    myProfile,
+    eventRegister
 } from './headerActionCreator';
 

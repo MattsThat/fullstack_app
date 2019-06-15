@@ -58,7 +58,7 @@ export const register = (nickname,username,password,props) =>{
            idToBeAdded= res.data.data.length + 1;
         //    console.log('in putDataToDB idToBeAdded',idToBeAdded);
            let hostsignup = props.hostsignup;
-        //    console.log('hostsignup',hostsignup);
+            // console.log('nickname',nickname);
              axios.post(`/login/putLoginDetails`, {
                id: parseInt(idToBeAdded, 10),
                hostsignup: hostsignup,

@@ -14,6 +14,11 @@ const headerReducer = (state=initialState, action) => {
                 ...state,
                 token:  action.token
             }
+        case actionTypes.PUT_EVENT_DETAILS:
+        console.log("PUT_EVENT_DETAILS in reducer",action)
+            return updateObject(state,{
+                token: action.token
+             });            
         case actionTypes.BOOKA_PLACE:
             return {
                 ...state,
