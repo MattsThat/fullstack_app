@@ -8,6 +8,8 @@ import './../../static/css/profileform.css';
 import MaterialTimePicker from '../common/MaterialTimePicker';
 import MaterialDatePicker from '../common/MaterialDatePicker';
 import TextField from '@material-ui/core/TextField';
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 
 const SignupSchema = Yup.object().shape({
@@ -52,7 +54,7 @@ class BookAnEvent extends React.Component {
       <br/>
       <Formik
         initialValues={{
-          eventbame: '',
+          eventname: '',
           eventdesc:'',
           eventsports: '',
           eventpremiseid: '',
@@ -130,14 +132,19 @@ class BookAnEvent extends React.Component {
                 </div>  
                 <div className="form-row">
                     <div className="switch form-group col-md-4">
-                        <label>
-                            <input type="checkbox" id="eventprivate" checked/>Private
-                      </label>                    
+                        <FormControlLabel
+                        value="private"
+                        control={<Switch color="primary" />}
+                        label="Private Event"
+                        labelPlacement="top"
+                        />                  
                     </div>
                     <div className="switch form-group col-md-4">
-                        <label>
-                            <input type="checkbox" id="eventprivate" checked/>Invite Sent
-                      </label>                    
+                        <FormControlLabel
+                            value="invitesent"
+                            control={<Switch color="primary" />}
+                            label="Invite Sent"
+                            labelPlacement="top"/>                  
                     </div>
                     <div className="form-group col-md-4">
                       <TextField
