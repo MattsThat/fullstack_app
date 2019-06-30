@@ -7,7 +7,7 @@ const initialState = {
 }
 
 const headerReducer = (state=initialState, action) => {
-    console.log('headerReducer action.type',action.type)
+    // console.log('headerReducer action.type',action.type)
     switch (action.type){
         case actionTypes.BOOK_AN_EVENT:
             return {
@@ -15,7 +15,7 @@ const headerReducer = (state=initialState, action) => {
                 token:  action.token
             }
         case actionTypes.PUT_EVENT_DETAILS:
-        console.log("PUT_EVENT_DETAILS in reducer",action)
+        // console.log("PUT_EVENT_DETAILS in reducer",action)
             return updateObject(state,{
                 token: action.token
              });            

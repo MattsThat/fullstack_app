@@ -34,7 +34,7 @@ export const putEventDetails = () => {
 }
 
 export const eventRegister =(props,values) =>{
-    console.log('on eventRegister props',props);
+    // console.log('on eventRegister props',props);
     console.log('on eventRegister values',values);
     return dispatch => {
         axios.post('/eventdetails/putEventDetails',{

@@ -1,26 +1,25 @@
-import React from 'react';
-import { Formik, Field } from 'formik';
+import React  from 'react';
+import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 import { withRouter } from 'react-router-dom';
 import './../../static/css/profileform.css'; 
-import MaterialTimePicker from '../common/MaterialTimePicker';
-import MaterialDatePicker from '../common/MaterialDatePicker';
+// import MaterialTimePicker from '../common/MaterialTimePicker';
+// import MaterialDatePicker from '../common/MaterialDatePicker';
 import TextField from '@material-ui/core/TextField';
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-
+// import Switch from '@material-ui/core/Switch';
+// import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 const SignupSchema = Yup.object().shape({
-  eventname: Yup.string()
-    .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
-    .required('Required'),
-  eventdesc: Yup.string()
-    .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
-    .required('Required')
+  // eventname: Yup.string()
+  //   .min(2, 'Too Short!')
+  //   .max(50, 'Too Long!')
+  //   .required('Required'),
+  // eventdesc: Yup.string()
+  //   .min(2, 'Too Short!')
+  //   .max(50, 'Too Long!')
+  //   .required('Required')
 });
 
 class BookAnEvent extends React.Component {
@@ -44,12 +43,11 @@ class BookAnEvent extends React.Component {
     // address fields in the form.
     autocomplete.addListener('place_changed', fillInAddress);
   }
-  
+
   render() {
-    
     return (
     <div>
-      <h1>My Profile</h1>
+      <h1>Book an Event</h1>
       <br/>
       <br/>
       <Formik
@@ -61,19 +59,20 @@ class BookAnEvent extends React.Component {
           eventdate: '',
           eventstarttime: '',
           eventendtime: '',
-          eventprivate: '',
+          eventprivate: 'false',
           expectnumber: '',
-          eventinvitesent: '',
+          eventinvitesent: 'false',
         }}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
             console.log('render this.props.values=',this.props.values);
             alert(JSON.stringify(values, null, 2));
-            this.props.onEventSubmit(this.props,values);
+            // this.props.onEventSubmit(this.props,values);
             setSubmitting(false);
           }, 500);
         }}
-        validationSchema={SignupSchema}>
+        // validationSchema={SignupSchema}
+        >
         {props => {
           const {
             values,
@@ -88,15 +87,21 @@ class BookAnEvent extends React.Component {
           } = props;
           return (
             //  {({ errors, touched }) => (
-            <form onSubmit={handleSubmit}>
+            <Form onSubmit={handleSubmit}>
                 <input type="hidden" name="history" defaultValue={this.props.history}/>
+                {/* <input type="hidden" name="eventid" value="1" onChange={handleChange} onBlur={handleBlur}/> */}
+              <div class="container justify-content-center">  
                 <div className="form-row">
+                    <select id="eventsports" name="eventsports" class="custom-select" onChange={handleChange} onBlur={handleBlur}>
+                      <option defaultValue="futsal">Futsal</option>
+                      <option value="tennis">Tennis</option>
+                      <option value="badmin">Badminton</option>
+                    </select>
                     <div className="form-group col-md-4">
                       <TextField
                       id="eventname"
                       required
                       placeholder="Event Name"
-                      // className={classes.textField}
                       margin="normal"
                       onChange={handleChange} 
                       onBlur={handleBlur}
@@ -119,55 +124,81 @@ class BookAnEvent extends React.Component {
                   </div>
                   <div className="form-group col-md-4">
                     <TextField
-                    id="expectnumber"
+                    id="expectedpartipants"
                     required
                     placeholder="Expected Participants"
                     // className={classes.textField}
                     margin="normal"
                     onChange={handleChange} 
-                    onBlur={handleBlur}
-                    />
-                    {errors.expectnumber && touched.expectnumber ? <div>{errors.expectnumber}</div> : null}
+                    onBlur={handleBlur}/>
+                    {errors.expectedpartipants && touched.expectedpartipants ? <div>{errors.expectedpartipants}</div> : null}
                   </div>
                 </div>  
                 <div className="form-row">
-                    <div className="switch form-group col-md-4">
-                        <FormControlLabel
-                        value="private"
-                        control={<Switch color="primary" />}
-                        label="Private Event"
-                        labelPlacement="top"
-                        />                  
+                    <div className="form-group col-md-6">
+                          <div class="custom-control custom-switch">
+                            <input type="checkbox" 
+                            class="custom-control-input" 
+                            id="eventprivate"
+                            onChange={handleChange} 
+                            onBlur={handleBlur}/>
+                            <label class="custom-control-label" for="eventprivate">Private Event</label>
+                          </div>
                     </div>
-                    <div className="switch form-group col-md-4">
-                        <FormControlLabel
-                            value="invitesent"
-                            control={<Switch color="primary" />}
-                            label="Invite Sent"
-                            labelPlacement="top"/>                  
+                    <div className="form-group col-md-6">
+                          <div class="custom-control custom-switch">
+                            <input type="checkbox" 
+                            class="custom-control-input" 
+                            id="eventinvitesent"
+                            onChange={handleChange} 
+                            onBlur={handleBlur}/>
+                            <label class="custom-control-label" for="eventinvitesent">Invite Sent</label>
+                          </div>
                     </div>
-                    <div className="form-group col-md-4">
-                      <TextField
-                      id="expectnumber"
-                      required
-                      placeholder="Expected Participants"
-                      // className={classes.textField}
-                      margin="normal"
-                      onChange={handleChange} 
-                      onBlur={handleBlur}
-                      />
-                      {errors.expectnumber && touched.expectnumber ? <div>{errors.expectnumber}</div> : null}
-                  </div>
                 </div>
                 <div className="form-row">
                     <div className="form-group col-md-4">
-                      <MaterialDatePicker id="eventdate" label="Event Date"/>
+                      <TextField
+                          id="eventdate"
+                          label="Event Date"
+                          type="date"
+                          defaultValue={new Date()}
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
+                          margin="normal"
+                          onChange={handleChange} 
+                          onBlur={handleBlur}/>
+                          {errors.eventdate && touched.eventdate ? <div>{errors.eventdate}</div> : null}
                     </div>
                     <div className="form-group col-md-4">
-                      <MaterialTimePicker id="eventstarttime" label="Start Time"/>
+                      <label for="eventstarttime">Event Start Time</label>
+                      <input 
+                          label="Event Start Time"
+                          type="time" 
+                          name="eventstarttime" 
+                          step="1800" 
+                          min="00:30"
+                          margin="normal"
+                          onChange={handleChange} 
+                          onBlur={handleBlur}/>
+                          {errors.eventstarttime && touched.eventstarttime ? <div>{errors.eventstarttime}</div> : null}
                     </div>
                     <div className="form-group col-md-4">
-                      <MaterialTimePicker id="eventendtime" label="End Time"/>
+                      <label for="eventendtime">Event End Time</label>
+                      <input 
+                          label="Event End Time"
+                          type="time" 
+                          name="eventendtime" 
+                          step="1800" 
+                          min="00:30"
+                          margin="normal"
+                          onChange={handleChange} 
+                          onBlur={handleBlur}/>
+                          {errors.eventendtime && touched.eventendtime ? <div>{errors.eventendtime}</div> : null}
+                        {/* <Field name="endtime" component={MaterialTimePicker}
+                        // onChange={handleChange} 
+                        onBlur={handleBlur}/> */}
                     </div>
                 </div>
                 <div className="form-row">
@@ -176,7 +207,8 @@ class BookAnEvent extends React.Component {
                     </button>
                     <button type="submit" disabled={isSubmitting}>Submit</button>
                 </div>
-              </form>
+              </div>  
+            </Form>
           );//end of formik return
         }}
         </Formik>
@@ -200,3 +232,4 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default withRouter(connect(mapStateToProps,mapDispatchToProps)(BookAnEvent));
+

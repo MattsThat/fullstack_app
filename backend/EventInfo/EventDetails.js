@@ -13,7 +13,7 @@ const EventDetails = new Schema(
     eventowner:String,
     eventdesc:String,
     expectedpartipants:Number,
-    participantuserid: Array,
+    // participantuserid: Array,
     eventsports:String,
     eventpremiseid:Number,
     eventprivate:Boolean,

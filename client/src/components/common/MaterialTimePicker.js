@@ -1,47 +1,31 @@
-import 'date-fns';
-import React from 'react';
-import PropTypes from 'prop-types';
-import Grid from '@material-ui/core/Grid';
-import { withStyles } from '@material-ui/core/styles';
-import  DateFnsUtils  from '@date-io/date-fns';
-import { MuiPickersUtilsProvider, KeyboardTimePicker } from '@material-ui/pickers';
+import React from "react";
+import DateFnsUtils from "@date-io/date-fns";
+import {
+  TimePicker,
+  MuiPickersUtilsProvider,
+} from "@material-ui/pickers";
 
-const styles = {
-  grid: {
-    width: '60%',
-  },
+const MaterialTimePicker = ({ field, form, ...other }) => {
+  const currentError = form.errors[field.name];
+  return (
+    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      <TimePicker
+        variant="inline"
+        clearable
+        minutesStep={30}
+        format="hh:mm"
+        ampm={true}
+        name={field.name}
+        value={field.value}
+        helperText={currentError}
+        error={Boolean(currentError)}
+        onError={(_, error) => form.setFieldError(field.name, error)}
+        onChange={time => form.setFieldValue(field.name, time, true)}
+        {...other}
+      />
+    </MuiPickersUtilsProvider>
+
+  );
 };
 
-class MaterialTimePicker extends React.Component {
-  state = {
-    // The first commit of Material-UI
-    selectedDate: new Date(),
-  };
-
-  handleDateChange = date => {
-    this.setState({ selectedDate: date });
-  };
-
-  render() {
-    const { classes } = this.props;
-    const { selectedDate } = this.state;
-    // console.log("this.props book event", this.props);
-
-    return (
-      <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <KeyboardTimePicker
-            margin="normal"
-            label={this.props.label}
-            value={selectedDate}
-            onChange={this.handleDateChange}
-          />
-      </MuiPickersUtilsProvider>
-    );
-  }
-}
-
-MaterialTimePicker.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(MaterialTimePicker);
+export default MaterialTimePicker;

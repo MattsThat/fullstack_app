@@ -70,15 +70,19 @@ router.get("/selectEventDetails", (req, res) => {
 
 // this method adds new host and individual data in our database
 router.post("/putEventDetails", (req, res) => {
-  let data = new EventDetails();
-  const { eventid,eventname, eventdesc, startdate, enddate, eventowner, expectedpartipants } = req.body;
-  data.eventid = eventid;
-  data.eventname = eventname;
-  data.eventdesc = eventdesc;
-  data.startdate = startdate;
-  data.enddate = enddate;
-  data.eventowner = eventowner;
-  data.expectedpartipants = expectedpartipants;
+  const data = new EventDetails(req.body.params.update);
+  console.log('before save data req.body.params.update',req.body.params.update);
+  // data = req.body.params.update;
+  // data.eventid = eventid;
+  // data.eventname = eventname;
+  // data.eventdesc = eventdesc;
+  // data.eventdate = eventdate;
+  // data.eventstarttime = eventstarttime;
+  // data.eventendtime = eventendtime;
+  // data.eventowner = eventowner;
+  // data.expectedpartipants = expectedpartipants;
+  // data.eventprivate = eventprivate;
+  // data.eventinvitesent = eventinvitesent;
   console.log('before save data',data);
   data.save(err => {
     if (err) 
@@ -87,7 +91,7 @@ router.post("/putEventDetails", (req, res) => {
       resdata = {...data, eventid:eventid}; 
       return res.json({ success: true, data:resdata });
       }//end of else
-    } //
+    }//
   );//end of save
 });
 

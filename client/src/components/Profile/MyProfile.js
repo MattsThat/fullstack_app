@@ -145,8 +145,9 @@ class MyProfile extends React.Component {
           return (
             //  {({ errors, touched }) => (
             <form onSubmit={handleSubmit}>
-                <input type="hidden" name="id" defaultValue={id}/>
-                <input type="hidden" name="history" defaultValue={this.props.history}/>
+              <input type="hidden" name="id" defaultValue={id}/>
+              <input type="hidden" name="history" defaultValue={this.props.history}/>
+              <div class="container justify-content-center">  
                 <div className="form-row">
                     <div className="form-group col-md-6">
                         <TextField
@@ -230,14 +231,12 @@ class MyProfile extends React.Component {
                           aria-label="Gender"
                           name="gender"
                           id="gender"
-                          // className={classes.group}
                           defaultValue={gender}
                           onChange={handleChange}
-                          onBlur={handleBlur}
-                        >
-                        <FormControlLabel value="female" control={<Radio />} label="Female" />
-                        <FormControlLabel value="male" control={<Radio />} label="Male" />
-                        <FormControlLabel value="other" control={<Radio />} label="Not Preferred to say" />
+                          onBlur={handleBlur}>
+                        <FormControlLabel value="female" control={<Radio/>} label="Female" />
+                        <FormControlLabel value="male" control={<Radio/>} label="Male" />
+                        <FormControlLabel value="other" control={<Radio/>} label="Not Preferred to say" />
                         {/* <FormControlLabel
                           defaultValue="disabled"
                           disabled
@@ -254,7 +253,8 @@ class MyProfile extends React.Component {
                     </button>
                     <button type="submit" disabled={isSubmitting}>Submit</button>
                 </div>
-              </form>
+              </div>  
+            </form>
           );//end of formik return
         }}
         </Formik>
