@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom';
 import './../../static/css/profileform.css'; 
 // import MaterialTimePicker from '../common/MaterialTimePicker';
 // import MaterialDatePicker from '../common/MaterialDatePicker';
-import TextField from '@material-ui/core/TextField';
+// import TextField from '@material-ui/core/TextField';
 // import Switch from '@material-ui/core/Switch';
 // import FormControlLabel from '@material-ui/core/FormControlLabel';
 
@@ -54,7 +54,7 @@ class BookAnEvent extends React.Component {
         initialValues={{
           eventname: '',
           eventdesc:'',
-          eventsports: '',
+          eventsports: 'futsal',
           eventpremiseid: '',
           eventdate: '',
           eventstarttime: '',
@@ -92,13 +92,18 @@ class BookAnEvent extends React.Component {
                 {/* <input type="hidden" name="eventid" value="1" onChange={handleChange} onBlur={handleBlur}/> */}
               <div class="container justify-content-center">  
                 <div className="form-row">
-                    <select id="eventsports" name="eventsports" class="custom-select" onChange={handleChange} onBlur={handleBlur}>
-                      <option defaultValue="futsal">Futsal</option>
-                      <option value="tennis">Tennis</option>
-                      <option value="badmin">Badminton</option>
-                    </select>
                     <div className="form-group col-md-4">
-                      <TextField
+                      <select id="eventsports" name="eventsports" class="custom-select" onChange={handleChange} onBlur={handleBlur}>
+                        <option defaultValue="futsal">Futsal</option>
+                        <option value="tennis">Tennis</option>
+                        <option value="badmin">Badminton</option>
+                      </select>
+                    </div> 
+                    <div className="form-group col-md-4">
+                    <input type="text" 
+                      class="form-control" 
+                      aria-label="Sizing example input" 
+                      aria-describedby="inputGroup-sizing-default"
                       id="eventname"
                       required
                       placeholder="Event Name"
@@ -106,66 +111,68 @@ class BookAnEvent extends React.Component {
                       onChange={handleChange} 
                       onBlur={handleBlur}
                       />
-                      {errors.eventname && touched.eventname ? (
-                          <div>{errors.eventname}</div>
-                      ) : null}
+                      {errors.eventname && touched.eventname ? (<div>{errors.eventname}</div>) : null}
                     </div> 
-                  <div className="form-group col-md-4">
-                    <TextField
-                    id="eventdesc"
-                    // label="Event Description"
-                    placeholder="Event Description"
-                    multiline
-                    // className={classes.textField}
-                    margin="normal"
-                    onChange={handleChange} 
-                    onBlur={handleBlur}
-                    />
-                  </div>
-                  <div className="form-group col-md-4">
-                    <TextField
-                    id="expectedpartipants"
-                    required
-                    placeholder="Expected Participants"
-                    // className={classes.textField}
-                    margin="normal"
-                    onChange={handleChange} 
-                    onBlur={handleBlur}/>
-                    {errors.expectedpartipants && touched.expectedpartipants ? <div>{errors.expectedpartipants}</div> : null}
-                  </div>
+                    <div className="form-group col-md-4">
+                    <input type="text" 
+                      class="form-control" 
+                      aria-label="Sizing example input" 
+                      aria-describedby="inputGroup-sizing-default"
+                      id="eventdesc"
+                      placeholder="Event Description"
+                      multiline
+                      margin="normal"
+                      onChange={handleChange} 
+                      onBlur={handleBlur}/>      
+                    </div>
                 </div>  
                 <div className="form-row">
-                    <div className="form-group col-md-6">
-                          <div class="custom-control custom-switch">
-                            <input type="checkbox" 
+                    <div className="form-group col-md-4 ">
+                      <div className="custom-control custom-switch">
+                        <div className="custom-switch">
+                          <input type="checkbox" 
                             class="custom-control-input" 
                             id="eventprivate"
                             onChange={handleChange} 
                             onBlur={handleBlur}/>
-                            <label class="custom-control-label" for="eventprivate">Private Event</label>
-                          </div>
+                          <label class="custom-control-label" for="eventprivate">Private Event</label>
+                        </div>  
+                      </div>    
                     </div>
-                    <div className="form-group col-md-6">
-                          <div class="custom-control custom-switch">
-                            <input type="checkbox" 
+                    <div className="form-group col-md-4 ">
+                    <div className="custom-control">
+                        <div className="custom-switch">
+                          <input type="checkbox" 
                             class="custom-control-input" 
                             id="eventinvitesent"
                             onChange={handleChange} 
                             onBlur={handleBlur}/>
-                            <label class="custom-control-label" for="eventinvitesent">Invite Sent</label>
-                          </div>
+                          <label class="custom-control-label" for="eventinvitesent">Invite Sent</label>
+                        </div>  
+                      </div>    
+                    </div>
+                    <div className="form-group col-md-4">
+                        <input type="text" 
+                          class="form-control" 
+                          id="expectedpartipants"
+                          required
+                          placeholder="Expected Participants"
+                          margin="normal"
+                          onChange={handleChange} 
+                          onBlur={handleBlur}
+                          />
+                          {errors.expectedpartipants && touched.expectedpartipants ? <div>{errors.expectedpartipants}</div> : null}
                     </div>
                 </div>
                 <div className="form-row">
                     <div className="form-group col-md-4">
-                      <TextField
+                      <label for="eventdate">Event Date</label>
+                      <input
+                          class="form-control" 
                           id="eventdate"
                           label="Event Date"
                           type="date"
                           defaultValue={new Date()}
-                          InputLabelProps={{
-                            shrink: true,
-                          }}
                           margin="normal"
                           onChange={handleChange} 
                           onBlur={handleBlur}/>
@@ -174,9 +181,12 @@ class BookAnEvent extends React.Component {
                     <div className="form-group col-md-4">
                       <label for="eventstarttime">Event Start Time</label>
                       <input 
+                          class="form-control" 
+                          aria-label="Sizing example input" 
+                          aria-describedby="inputGroup-sizing-default"
                           label="Event Start Time"
                           type="time" 
-                          name="eventstarttime" 
+                          name="eventstarttime"
                           step="1800" 
                           min="00:30"
                           margin="normal"
@@ -187,6 +197,9 @@ class BookAnEvent extends React.Component {
                     <div className="form-group col-md-4">
                       <label for="eventendtime">Event End Time</label>
                       <input 
+                          class="form-control" 
+                          aria-label="Sizing example input" 
+                          aria-describedby="inputGroup-sizing-default"
                           label="Event End Time"
                           type="time" 
                           name="eventendtime" 
@@ -196,9 +209,6 @@ class BookAnEvent extends React.Component {
                           onChange={handleChange} 
                           onBlur={handleBlur}/>
                           {errors.eventendtime && touched.eventendtime ? <div>{errors.eventendtime}</div> : null}
-                        {/* <Field name="endtime" component={MaterialTimePicker}
-                        // onChange={handleChange} 
-                        onBlur={handleBlur}/> */}
                     </div>
                 </div>
                 <div className="form-row">
