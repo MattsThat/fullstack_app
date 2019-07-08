@@ -17,9 +17,10 @@ class Layout extends Component {
   }
   render () {
     return (
-      <Aux >
+      <Aux>
         <Toolbar 
           isAuth = {this.props.isAuthenticated}
+          isHostSignUp = {this.props.isHostSignUp}
           open={this.state.show}
           close={this.handler.sideDrawer}/>
         <SideDrawer
@@ -36,7 +37,8 @@ class Layout extends Component {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated : state.auth.token != null
+    isAuthenticated : state.auth.token != null,
+    isHostSignUp : state.auth.hostsignup
   };
 };
 

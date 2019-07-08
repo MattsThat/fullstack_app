@@ -56,7 +56,7 @@ const SignupSchema = Yup.object().shape({
 //   />
 // ];
 
-class MyProfile extends React.Component {
+class MyHostProfile extends React.Component {
 
   constructor(props){
     super(props);
@@ -137,8 +137,8 @@ class MyProfile extends React.Component {
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
             console.log('profile update this.props.values=',values);
-            // alert(JSON.stringify(values, null, 2));
-            this.props.onProfileSubmit(this.props,values);
+            alert(JSON.stringify(values, null, 2));
+            // this.props.onProfileSubmit(this.props,values);
             setSubmitting(false);
           }, 500);
         }}
@@ -270,4 +270,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default withRouter(connect(mapStateToProps,mapDispatchToProps)(MyProfile));
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(MyHostProfile));

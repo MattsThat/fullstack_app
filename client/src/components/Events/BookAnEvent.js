@@ -5,11 +5,12 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions';
 import { withRouter } from 'react-router-dom';
 import './../../static/css/profileform.css'; 
-// import MaterialTimePicker from '../common/MaterialTimePicker';
-// import MaterialDatePicker from '../common/MaterialDatePicker';
-// import TextField from '@material-ui/core/TextField';
-// import Switch from '@material-ui/core/Switch';
-// import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { MyTextField } from '../common/MyTextField';
+import { MyTextArea } from '../common/MyTextArea';
+import { MySelect } from '../common/MySelect';
+import { MySwitch } from '../common/MySwitch';
+import { MyDatePicker } from '../common/MyDatePicker';
+import { MyTimePicker } from '../common/MyTimePicker';
 
 const SignupSchema = Yup.object().shape({
   // eventname: Yup.string()
@@ -21,6 +22,12 @@ const SignupSchema = Yup.object().shape({
   //   .max(50, 'Too Long!')
   //   .required('Required')
 });
+
+const sportsOptions = [
+  <option defaultValue='futsal'>Futsal</option>,
+  <option value='tennis'>Tennis</option>,
+  <option value='badmin'>Badminton</option>,
+];
 
 class BookAnEvent extends React.Component {
 
@@ -60,7 +67,7 @@ class BookAnEvent extends React.Component {
           eventstarttime: '',
           eventendtime: '',
           eventprivate: 'false',
-          expectnumber: '',
+          expectedpartipants: '',
           eventinvitesent: 'false',
         }}
         onSubmit={(values, { setSubmitting }) => {
@@ -93,14 +100,27 @@ class BookAnEvent extends React.Component {
               <div class="container justify-content-center">  
                 <div className="form-row">
                     <div className="form-group col-md-4">
-                      <select id="eventsports" name="eventsports" class="custom-select" onChange={handleChange} onBlur={handleBlur}>
+                      <MySelect
+                       id="eventsports" 
+                       name="eventsports" 
+                       onChange={handleChange} 
+                       onBlur={handleBlur}
+                       optionData={sportsOptions}
+                      />
+                      {/* <select id="eventsports" name="eventsports" class="custom-select" onChange={handleChange} onBlur={handleBlur}>
                         <option defaultValue="futsal">Futsal</option>
                         <option value="tennis">Tennis</option>
                         <option value="badmin">Badminton</option>
-                      </select>
+                      </select> */}
                     </div> 
                     <div className="form-group col-md-4">
-                    <input type="text" 
+                      <MyTextField
+                        id="eventname"
+                        placeholder="Event Name"
+                        onChange={handleChange} 
+                        onBlur={handleBlur}
+                      />
+                    {/* <input type="text" 
                       class="form-control" 
                       aria-label="Sizing example input" 
                       aria-describedby="inputGroup-sizing-default"
@@ -111,24 +131,26 @@ class BookAnEvent extends React.Component {
                       onChange={handleChange} 
                       onBlur={handleBlur}
                       />
-                      {errors.eventname && touched.eventname ? (<div>{errors.eventname}</div>) : null}
+                      {errors.eventname && touched.eventname ? (<div>{errors.eventname}</div>) : null} */}
                     </div> 
                     <div className="form-group col-md-4">
-                    <input type="text" 
-                      class="form-control" 
-                      aria-label="Sizing example input" 
-                      aria-describedby="inputGroup-sizing-default"
-                      id="eventdesc"
-                      placeholder="Event Description"
-                      multiline
-                      margin="normal"
-                      onChange={handleChange} 
-                      onBlur={handleBlur}/>      
+                        <MyTextArea
+                          id="eventdesc"
+                          placeholder="Event Description"
+                          onChange={handleChange} 
+                          onBlur={handleBlur}
+                        />
                     </div>
                 </div>  
                 <div className="form-row">
                     <div className="form-group col-md-4 ">
-                      <div className="custom-control custom-switch">
+                      <MySwitch
+                        id="eventprivate"
+                        label="Private Event"
+                        onChange={handleChange} 
+                        onBlur={handleBlur}
+                      />
+                      {/* <div className="custom-control custom-switch">
                         <div className="custom-switch">
                           <input type="checkbox" 
                             class="custom-control-input" 
@@ -137,36 +159,36 @@ class BookAnEvent extends React.Component {
                             onBlur={handleBlur}/>
                           <label class="custom-control-label" for="eventprivate">Private Event</label>
                         </div>  
-                      </div>    
+                      </div>     */}
                     </div>
                     <div className="form-group col-md-4 ">
-                    <div className="custom-control">
-                        <div className="custom-switch">
-                          <input type="checkbox" 
-                            class="custom-control-input" 
-                            id="eventinvitesent"
-                            onChange={handleChange} 
-                            onBlur={handleBlur}/>
-                          <label class="custom-control-label" for="eventinvitesent">Invite Sent</label>
-                        </div>  
-                      </div>    
-                    </div>
-                    <div className="form-group col-md-4">
-                        <input type="text" 
-                          class="form-control" 
-                          id="expectedpartipants"
-                          required
-                          placeholder="Expected Participants"
-                          margin="normal"
+                      <MySwitch
+                          id="eventinvitesent"
+                          label="Invite Sent"
                           onChange={handleChange} 
                           onBlur={handleBlur}
-                          />
-                          {errors.expectedpartipants && touched.expectedpartipants ? <div>{errors.expectedpartipants}</div> : null}
+                        />
+                    </div>
+                    <div className="form-group col-md-4">
+                        <MyTextField
+                          id="expectedpartipants"
+                          placeholder="Expected Participants"
+                          onChange={handleChange} 
+                          onBlur={handleBlur}
+                        />
                     </div>
                 </div>
                 <div className="form-row">
                     <div className="form-group col-md-4">
-                      <label for="eventdate">Event Date</label>
+                      <MyDatePicker
+                          id="eventdate"
+                          label="Event Date"
+                          defaultValue={new Date()}
+                          margin="normal"
+                          onChange={handleChange} 
+                          onBlur={handleBlur}
+                      />
+                      {/* <label for="eventdate">Event Date</label>
                       <input
                           class="form-control" 
                           id="eventdate"
@@ -176,10 +198,18 @@ class BookAnEvent extends React.Component {
                           margin="normal"
                           onChange={handleChange} 
                           onBlur={handleBlur}/>
-                          {errors.eventdate && touched.eventdate ? <div>{errors.eventdate}</div> : null}
+                          {errors.eventdate && touched.eventdate ? <div>{errors.eventdate}</div> : null} */}
                     </div>
                     <div className="form-group col-md-4">
-                      <label for="eventstarttime">Event Start Time</label>
+                      <MyTimePicker
+                          label="Event Start Time"
+                          name="eventstarttime"
+                          step="1800" 
+                          min="00:30"
+                          onChange={handleChange} 
+                          onBlur={handleBlur}
+                      />  
+                      {/* <label for="eventstarttime">Event Start Time</label>
                       <input 
                           class="form-control" 
                           aria-label="Sizing example input" 
@@ -192,23 +222,17 @@ class BookAnEvent extends React.Component {
                           margin="normal"
                           onChange={handleChange} 
                           onBlur={handleBlur}/>
-                          {errors.eventstarttime && touched.eventstarttime ? <div>{errors.eventstarttime}</div> : null}
+                          {errors.eventstarttime && touched.eventstarttime ? <div>{errors.eventstarttime}</div> : null} */}
                     </div>
                     <div className="form-group col-md-4">
-                      <label for="eventendtime">Event End Time</label>
-                      <input 
-                          class="form-control" 
-                          aria-label="Sizing example input" 
-                          aria-describedby="inputGroup-sizing-default"
+                    <MyTimePicker
                           label="Event End Time"
-                          type="time" 
-                          name="eventendtime" 
+                          name="eventendtime"
                           step="1800" 
                           min="00:30"
-                          margin="normal"
                           onChange={handleChange} 
-                          onBlur={handleBlur}/>
-                          {errors.eventendtime && touched.eventendtime ? <div>{errors.eventendtime}</div> : null}
+                          onBlur={handleBlur}
+                      />  
                     </div>
                 </div>
                 <div className="form-row">

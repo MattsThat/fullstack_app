@@ -106,7 +106,7 @@ export const myProfileUpdate = (props,values) => {
 export const myProfile = (props) => {
     let id = null;
     return dispatch => {
-        // console.log('getProfile props',props)
+        console.log('getProfile props',props)
         axios.get(`/userinfo/selectUserInfo`,{
             params:{
                 id: props.id,
@@ -127,12 +127,13 @@ export const myProfile = (props) => {
                 props.history.push('/myprofile');
             }
             else{
+                console.log('myProfile catch err 1',err);
                 props.history.push('/');
                 // dispatch(authFail(response.data.data.error));
             }
         })
         .catch(err => {
-            console.log('myProfile catch err',err);
+            console.log('myProfile catch err 2',err);
             props.history.push('/');
             // dispatch(authFail(response.data.data.error));
         });

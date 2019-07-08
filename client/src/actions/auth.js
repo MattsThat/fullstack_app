@@ -70,7 +70,11 @@ export const register = (nickname,username,password,props) =>{
                 if(response.data.success){
                     dispatch(authSuccess(response.data.data));
                     dispatch(checkAuthTimeout(response.data.data.expiresIn));
-                    props.history.push('/dashboard');
+                    console.log('hostsignup',hostsignup);
+                    if(hostsignup)
+                        props.history.push('/hostprofile');
+                    else
+                        props.history.push('/dashboard');
        
                 }else{
                     props.history.push('/');

@@ -21,6 +21,7 @@ const authSuccess = (state, action) => {
     return updateObject(state,{
         token: action.token,
         nickname : action.nickname,
+        hostsignup : action.hostsignup,
         id : action.id,
         error: null,
         isAuth : true,
