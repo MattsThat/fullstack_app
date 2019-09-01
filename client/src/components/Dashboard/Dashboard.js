@@ -1,5 +1,5 @@
 import React from 'react';
-// import LoggedInHeader from '../Header/LoggedInHeader';
+// import GuestHeader from '../Header/GuestHeader';
 
 class Dashboard extends React.Component {
   // state = {
@@ -9,7 +9,6 @@ class Dashboard extends React.Component {
   render() {
     return (
       <React.Fragment>
-        {/* <LoggedInHeader/> */}
         <h1>Dashboard</h1>
       </React.Fragment>
     );

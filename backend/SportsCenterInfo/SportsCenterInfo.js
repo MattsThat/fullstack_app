@@ -13,6 +13,7 @@ const SportsCenterInfo = new Schema(
     companynameinlocallang: String,
     email: String,
     phone: String,
+    lineid: String,
     country: String,
     city: String,
     pincode: String,
@@ -24,7 +25,7 @@ const SportsCenterInfo = new Schema(
     parking:Boolean,
     shower: Boolean,
     clubhouse:Boolean,
-    foodanddrink: Boolean,
+    food: Boolean,
     drinks: Boolean,
     sportsshop: Boolean,
     joineddate: Date

@@ -28,7 +28,7 @@ class Home extends Component{
 
   render(){
 
-    // let header = this.props.isAuth ? <Header props={this.props}/> : <LoggedInHeader/>
+    // let header = this.props.isAuth ? <Header props={this.props}/> : <GuestHeader/>
     // let header = <Header props={this.props}/>
     return(
         <div className={classes.navigation}>

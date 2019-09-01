@@ -32,6 +32,7 @@ app.use(bodyParser.json());
 app.use(logger("dev"));
 app.use(cors());
 app.use(cookieParser());
+app.set('db',db);
 // append /api for our http requests
 app.use("/api", router);
 router.use('/login', require('./LoginInfo/LoginAPI')); 

@@ -15,7 +15,7 @@ const headerReducer = (state=initialState, action) => {
                 token:  action.token
             }
         case actionTypes.PUT_EVENT_DETAILS:
-        // console.log("PUT_EVENT_DETAILS in reducer",action)
+            // console.log("PUT_EVENT_DETAILS in reducer",action)
             return updateObject(state,{
                 token: action.token
              });            

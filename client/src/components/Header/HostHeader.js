@@ -119,26 +119,35 @@ render(){
           </form>
           {/* <ul class="navbar-nav ml-auto"> */}
           <ul class="nav nav-tabs ml-auto bg-primary">
-          <li class="nav-item active">
-              <Link class="nav-link" onClick={this.handleFriends}>HostProfile<span class="sr-only">(current)</span></Link>
-            </li>
-            <li class="nav-item active">
-              {/* <a class="nav-link" href={this.props.onLoginMenu}>Login <span class="sr-only">(current)</span></a> */}
-              <Link class="nav-link" onClick={this.handleBookAPlace}>HostProfile<span class="sr-only">(current)</span></Link>
-            </li>
-            <li class="nav-item active">
-              <Link class="nav-link" onClick={this.handleBookAnEvent}>HostProfile<span class="sr-only">(current)</span></Link>
+          <li class="nav-item dropdown">
+              <Link class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onClick={this.handleToggle}>Your Courts</Link>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <Link class="dropdown-item" onClick={this.handleNewCourts}>New Court Register<span class="sr-only">(current)</span></Link>
+                <Link class="dropdown-item" onClick={this.handleExistingCourt}>Update Court Info<span class="sr-only">(current)</span></Link>
+              </div>
             </li>
             <li class="nav-item dropdown">
-              {/* <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Dropdown
-              </a> */}
+              <Link class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onClick={this.handleToggle}>Communications</Link>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <Link class="dropdown-item" onClick={this.handleInbox}>Inbox<span class="sr-only">(current)</span></Link>
+                <Link class="dropdown-item" onClick={this.handleReviews}>Reviews<span class="sr-only">(current)</span></Link>
+                <Link class="dropdown-item" onClick={this.handleAlerts}>Alerts<span class="sr-only">(current)</span></Link>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <Link class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onClick={this.handleToggle}>Reservation</Link>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <Link class="dropdown-item" onClick={this.handleUpcomingReserv}>Upcoming Reservations<span class="sr-only">(current)</span></Link>
+                <Link class="dropdown-item" onClick={this.handlePastReserv}>Past Reservations<span class="sr-only">(current)</span></Link>
+                <div class="dropdown-divider"></div>
+                    <Link class="dropdown-item" onClick={this.handleStats}>Stats<span class="sr-only">(current)</span></Link>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
               <Link class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onClick={this.handleToggle}>{this.props.nickname} Account</Link>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <Link class="dropdown-item" onClick={this.handleClickMyProfile}>Profile<span class="sr-only">(current)</span></Link>
                 <Link class="dropdown-item" onClick={this.handleClickLogout}>Logout<span class="sr-only">(current)</span></Link>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Sample</a>
               </div>
             </li>
           </ul>

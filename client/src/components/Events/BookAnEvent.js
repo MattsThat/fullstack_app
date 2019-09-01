@@ -72,9 +72,9 @@ class BookAnEvent extends React.Component {
         }}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
-            console.log('render this.props.values=',this.props.values);
-            alert(JSON.stringify(values, null, 2));
-            // this.props.onEventSubmit(this.props,values);
+            // console.log('render values=',values);
+            // alert(JSON.stringify(values, null, 2));
+            this.props.onEventSubmit(this.props,values);
             setSubmitting(false);
           }, 500);
         }}

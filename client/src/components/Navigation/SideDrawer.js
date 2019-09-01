@@ -6,7 +6,7 @@ import NavItems from './NavItems';
 // import Logo from '../UI/Logo';
 import Backdrop from '../UI/Backdrop';
 import Header from '../Header/Header';
-import LoggedInHeader from '../Header/LoggedInHeader';
+import GuestHeader from '../Header/GuestHeader';
 
 const sideDrawer = ( props ) => {
   //variable that toggles between 'close' and 'open' class

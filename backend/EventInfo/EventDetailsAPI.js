@@ -1,8 +1,9 @@
 const express = require("express");
 const EventDetails = require("./EventDetails");
-const jwt = require('jsonwebtoken');
-const app = express();
+// const jwt = require('jsonwebtoken');
+// const app = express();
 const router = express.Router();
+var ObjectId = require('mongodb').ObjectID;
 
 router.get("/goToHome", (req, res) => {
   return res.json({success : true});
@@ -68,31 +69,37 @@ router.get("/selectEventDetails", (req, res) => {
     });
 });
 
+// this method was written to get the count but not used.
+// function getEventsCount(){
+//   // console.log('id selectEventDetails',req.query.id);
+//   // const id  = req.query.id;
+//   EventDetails.estimatedDocumentCount({}, function(err,count){
+//       if(err || count === null){
+//         console.log('count err',err);
+//         console.log('count data',count);
+//         count = 0;
+//       }  
+//       else{  
+//         console.log('else count',count);
+//         return count;
+//       }
+//     })
+// };
+
+
 // this method adds new host and individual data in our database
 router.post("/putEventDetails", (req, res) => {
   const data = new EventDetails(req.body.params.update);
-  console.log('before save data req.body.params.update',req.body.params.update);
-  // data = req.body.params.update;
-  // data.eventid = eventid;
-  // data.eventname = eventname;
-  // data.eventdesc = eventdesc;
-  // data.eventdate = eventdate;
-  // data.eventstarttime = eventstarttime;
-  // data.eventendtime = eventendtime;
-  // data.eventowner = eventowner;
-  // data.expectedpartipants = expectedpartipants;
-  // data.eventprivate = eventprivate;
-  // data.eventinvitesent = eventinvitesent;
-  console.log('before save data',data);
-  data.save(err => {
-    if (err) 
-      return res.json({ success: false, error: err });
-    else{
-      resdata = {...data, eventid:eventid}; 
-      return res.json({ success: true, data:resdata });
-      }//end of else
-    }//
-  );//end of save
-});
+  try{
+    req.app.get('db').collection('EventDetails').insertOne(data)
+    .then(function(result){
+      return res.json({success: true, result});
+    });
+  }catch(err){
+    console.log('in catch',err);
+    return res.json({success: false, error: err});
+  }
+});//end of insert
+
 
 module.exports = router ;

@@ -4,7 +4,7 @@ import classes from './Toolbar.css'
 import NavItems from './NavItems'
 import SideToggle from './SideToggle';
 import Header from '../Header/Header';
-import LoggedInHeader from '../Header/LoggedInHeader';
+import GuestHeader from '../Header/GuestHeader';
 import HostHeader from '../Header/HostHeader';
 
 const toolbar = ( props ) => {
@@ -13,7 +13,7 @@ const toolbar = ( props ) => {
     if(props.isHostSignUp) 
       headerName = <HostHeader/>;
     else
-      headerName = <LoggedInHeader/>;
+      headerName = <GuestHeader/>;
   else
     headerName = <Header/>;
           

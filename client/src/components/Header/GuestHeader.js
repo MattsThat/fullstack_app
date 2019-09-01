@@ -9,7 +9,7 @@ import PlacesAutocomplete, {
     getLatLng,
   } from 'react-places-autocomplete';
 
-class LoggedInHeader extends React.Component {
+class GuestHeader extends React.Component {
 
 constructor(props){
     super(props);
@@ -173,5 +173,5 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default withRouter(connect(mapStateToProps,mapDispatchToProps)(LoggedInHeader))
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(GuestHeader))
     

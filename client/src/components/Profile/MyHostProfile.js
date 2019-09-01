@@ -5,19 +5,10 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions';
 import { withRouter } from 'react-router-dom';
 import './../../static/css/profileform.css'; 
-// import { RadioButton, RadioButtonGroup } from '../common/CommonComp';
 import { MyTextField } from '../common/MyTextField';
 import { MyTextArea } from '../common/MyTextArea';
-import { MyRadioButton } from '../common/MyRadioButton';
-import { MyRadioButtonGroup } from '../common/MyRadioButtonGroup';
-
-import TextField from '@material-ui/core/TextField';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-// import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-// import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
+import { MySelect } from '../common/MySelect';
+import { MySwitch } from '../common/MySwitch';
 
 const SignupSchema = Yup.object().shape({
   firstname: Yup.string()
@@ -35,26 +26,6 @@ const SignupSchema = Yup.object().shape({
     .required("Please select")
 });
 
-// const genderOptions = [
-//   <MyRadioButton
-//     name="gender"
-//     id="gender"
-//     value="female"
-//     label="Female"
-//   />,
-//   <MyRadioButton
-//     name="gender"
-//     id="gender"
-//     value="male"
-//     label="Male"
-//   />,
-//   <MyRadioButton
-//     name="gender"
-//     id="gender"
-//     value="na"
-//     label="Not Preferred to Say"
-//   />
-// ];
 
 class MyHostProfile extends React.Component {
 
@@ -99,23 +70,26 @@ class MyHostProfile extends React.Component {
     let lastname='';
     let email='';
     let id='';
-    let gender='';
+    let companyname='';
     let lineid='';
     let address='';
+    let accessdetails='';
   if (this.props.profiledata === null){
       firstname=''; 
       lastname='';
       email='';
       id='';
-      gender='';
+      companyname='';
       lineid='';
       address='';
+      accessdetails='';
     }else{
       id=this.props.profiledata.id; 
       firstname=this.props.profiledata.firstname; 
       lastname=this.props.profiledata.lastname;
       email=this.props.profiledata.email;
-      gender=this.props.profiledata.gender;
+      companyname=this.props.profiledata.companyname;
+      accessdetails=this.props.profiledata.accessdetails;
       lineid=this.props.profiledata.lineid;
       address=this.props.profiledata.address;
     }
@@ -130,8 +104,9 @@ class MyHostProfile extends React.Component {
           firstname: firstname,
           lastname: lastname,
           email: email,
-          gender: gender,
+          accessdetails: accessdetails,
           lineid: lineid,
+          companyname : companyname,
           address: address
         }}
         onSubmit={(values, { setSubmitting }) => {
@@ -186,10 +161,10 @@ class MyHostProfile extends React.Component {
                   <div className="form-row">
                     <div className="form-group col-md-6"> 
                       <MyTextField
-                          id="email"
-                          placeholder="Email"
+                          id="companyname"
+                          placeholder="Company Name"
                           label="Email"
-                          defaultValue={email} 
+                          defaultValue={companyname} 
                           onChange={handleChange} 
                           onBlur={handleBlur}
                       />
@@ -217,26 +192,49 @@ class MyHostProfile extends React.Component {
                       onBlur={handleBlur}
                     />
                   </div>
+                  <div className="form-group col-md-6"> 
+                    <MyTextArea
+                      id="accessdetails"
+                      placeholder="Access Details"
+                      label="Access Details"
+                      defaultValue={accessdetails} 
+                      onChange={handleChange} 
+                      onBlur={handleBlur}
+                    />
+                  </div>
                 </div>
                 <div className="form-row">
                   <div className="form-group col-md-12"> 
-                    {/* <MyRadioButtonGroup
-                      label="Gender"
-                      optionsData={genderOptions}>
-                    </MyRadioButtonGroup> */}
-                    <FormLabel component="legend">Gender</FormLabel>
-                    <RadioGroup
-                      aria-label="Gender"
-                      name="gender"
-                      id="gender"
-                      defaultValue={gender}
-                      onChange={handleChange}
-                      onBlur={handleBlur}>
-                      <FormControlLabel value="female" control={<Radio/>} label="Female" />
-                      <FormControlLabel value="male" control={<Radio/>} label="Male" />
-                      <FormControlLabel value="other" control={<Radio/>} label="Not Preferred to say" />
-                    </RadioGroup>
-                    {errors.gender && touched.gender ? <div>{errors.gender}</div> : null}
+                    <MySwitch
+                        id="parking"
+                        label="Parking"
+                        onChange={handleChange} 
+                        onBlur={handleBlur}
+                    />
+                    <MySwitch
+                        id="shower"
+                        label="Shower"
+                        onChange={handleChange} 
+                        onBlur={handleBlur}
+                    />
+                    <MySwitch
+                        id="clubhouse"
+                        label="Club House"
+                        onChange={handleChange} 
+                        onBlur={handleBlur}
+                    />
+                    <MySwitch
+                        id="food"
+                        label="Food"
+                        onChange={handleChange} 
+                        onBlur={handleBlur}
+                    />
+                    <MySwitch
+                        id="sportshop"
+                        label="Sports Shop"
+                        onChange={handleChange} 
+                        onBlur={handleBlur}
+                    />
                   </div>
                 </div>
                 <div className="form-row">
