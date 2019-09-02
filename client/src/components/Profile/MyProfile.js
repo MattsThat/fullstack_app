@@ -8,10 +8,9 @@ import './../../static/css/profileform.css';
 // import { RadioButton, RadioButtonGroup } from '../common/CommonComp';
 import { MyTextField } from '../common/MyTextField';
 import { MyTextArea } from '../common/MyTextArea';
-import { MyRadioButton } from '../common/MyRadioButton';
-import { MyRadioButtonGroup } from '../common/MyRadioButtonGroup';
-
-import TextField from '@material-ui/core/TextField';
+// import { MyRadioButton } from '../common/MyRadioButton';
+// import { MyRadioButtonGroup } from '../common/MyRadioButtonGroup';
+// import TextField from '@material-ui/core/TextField';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 // import FormHelperText from '@material-ui/core/FormHelperText';
@@ -28,33 +27,12 @@ const SignupSchema = Yup.object().shape({
     .min(2, 'Too Short!')
     .max(50, 'Too Long!')
     .required('Required'),
-  email: Yup.string()
-    .email('Invalid email')
-    .required('Required'),
-  gender: Yup.string()
+    // email: Yup.string()
+    // .email('Invalid email')
+    // .required('Required'),
+    gender: Yup.string()
     .required("Please select")
 });
-
-// const genderOptions = [
-//   <MyRadioButton
-//     name="gender"
-//     id="gender"
-//     value="female"
-//     label="Female"
-//   />,
-//   <MyRadioButton
-//     name="gender"
-//     id="gender"
-//     value="male"
-//     label="Male"
-//   />,
-//   <MyRadioButton
-//     name="gender"
-//     id="gender"
-//     value="na"
-//     label="Not Preferred to Say"
-//   />
-// ];
 
 class MyProfile extends React.Component {
 
@@ -137,7 +115,8 @@ class MyProfile extends React.Component {
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
             console.log('profile update this.props.values=',values);
-            // alert(JSON.stringify(values, null, 2));
+            alert("camehere");
+            alert(JSON.stringify(values, null, 2));
             this.props.onProfileSubmit(this.props,values);
             setSubmitting(false);
           }, 500);
@@ -185,7 +164,16 @@ class MyProfile extends React.Component {
                   </div>
                   <div className="form-row">
                     <div className="form-group col-md-6"> 
-                      <MyTextField
+                      {/* <MyTextField
+                          id="email"
+                          placeholder="Email"
+                          label="Email"
+                          defaultValue={email} 
+                          onChange={handleChange} 
+                          onBlur={handleBlur}
+                      /> */}
+                      <input
+                          type="email"
                           id="email"
                           placeholder="Email"
                           label="Email"
@@ -220,10 +208,6 @@ class MyProfile extends React.Component {
                 </div>
                 <div className="form-row">
                   <div className="form-group col-md-12"> 
-                    {/* <MyRadioButtonGroup
-                      label="Gender"
-                      optionsData={genderOptions}>
-                    </MyRadioButtonGroup> */}
                     <FormLabel component="legend">Gender</FormLabel>
                     <RadioGroup
                       aria-label="Gender"
@@ -243,7 +227,9 @@ class MyProfile extends React.Component {
                     <button type="button" className="outline" onClick={handleReset} disabled={!dirty || isSubmitting}>
                       Reset
                     </button>
-                    <button type="submit" disabled={isSubmitting}>Submit</button>
+                    {console.log('isSubmitting=',isSubmitting)}
+                    <button type="submit" disabled={!dirty || isSubmitting}>Submit</button>
+                    {/* <button type="submit" disabled={isSubmitting}>Submit</button> */}
                 </div>
               </div>  
             </form>

@@ -126,13 +126,14 @@ render(){
               {/* <a class="nav-link" href={this.props.onLoginMenu}>Login <span class="sr-only">(current)</span></a> */}
               <Link class="nav-link" onClick={this.handleBookAPlace}>Book a Place<span class="sr-only">(current)</span></Link>
             </li>
-            <li class="nav-item active">
-              <Link class="nav-link" onClick={this.handleBookAnEvent}>Book an Event<span class="sr-only">(current)</span></Link>
+            <li class="nav-item dropdown">
+              <Link class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onClick={this.handleToggle}>Events</Link>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <Link class="dropdown-item" onClick={this.handleBookAnEvent}>Book an Event<span class="sr-only">(current)</span></Link>
+                <Link class="dropdown-item" onClick={this.handleEventUpdate}>Update Event<span class="sr-only">(current)</span></Link>
+              </div>
             </li>
             <li class="nav-item dropdown">
-              {/* <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Dropdown
-              </a> */}
               <Link class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onClick={this.handleToggle}>{this.props.nickname} Account</Link>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <Link class="dropdown-item" onClick={this.handleClickMyProfile}>Profile<span class="sr-only">(current)</span></Link>

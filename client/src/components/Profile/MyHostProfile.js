@@ -163,7 +163,7 @@ class MyHostProfile extends React.Component {
                       <MyTextField
                           id="companyname"
                           placeholder="Company Name"
-                          label="Email"
+                          label="Company Name"
                           defaultValue={companyname} 
                           onChange={handleChange} 
                           onBlur={handleBlur}

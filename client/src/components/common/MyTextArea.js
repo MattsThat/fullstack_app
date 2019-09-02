@@ -24,7 +24,7 @@ export const MyTextArea = ({
         class="form-control" 
         aria-label="Sizing example input" 
         aria-describedby="inputGroup-sizing-default"
-        multiline
+        // multiline
         id={id}
         placeholder={placeholder}
         defaultValue={defaultValue} 

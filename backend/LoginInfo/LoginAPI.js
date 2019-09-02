@@ -37,7 +37,7 @@ router.get("/getLoginDetails", (req, res) => {
 // this method overwrites existing data in our database
 router.post("/updateLoginDetails", (req, res) => {
   const { id, update } = req.body;
-  LoginDetails.findOneAndUpdate(id, update, err => {
+  LoginDetails.findOneAndUpdate({'id' : id}, update, err => {
     if (err) return res.json({ success: false, error: err });
     return res.json({ success: true });
   });
@@ -46,7 +46,7 @@ router.post("/updateLoginDetails", (req, res) => {
 // this method removes existing data in our database
 router.delete("/deleteLoginDetails", (req, res) => {
   const { id } = req.body;
-  LoginDetails.findOneAndDelete(id, err => {
+  LoginDetails.findOneAndDelete({'id' : id}, err => {
     if (err) return res.send(err);
     return res.json({ success: true });
   });
@@ -61,11 +61,11 @@ router.get("/selectLoginDetails", (req, res) => {
     if(err || data === null){
       // console.log('findOne err',err);
       resdata = {...data, error:'wrong userid'}; 
-      console.log('after data',resdata);
+      // console.log('after data',resdata);
       return res.json({ success: false, data:resdata });
     }else{
       let valid = bcrypt.compareSync(password, data.password); // true
-      console.log('valid',valid);
+      // console.log('valid',valid);
       if(valid){
           // Issue token
           let expiresIn = '3600';
@@ -107,35 +107,29 @@ router.post("/putLoginDetails", (req, res) => {
   data.nickname = nickname;
   data.username = username;
   data.password = hashedPassword;
-  // console.log('before save data',data);
-  data.save(err => {
-    if (err) 
-      return res.json({ success: false, error: err });
-    else{
-      let expiresIn = '3600';
-      const payload = { username };
-      const token = jwt.sign(payload, secret, {
-        expiresIn: '3600'
+
+  try {
+    let expiresIn = '3600';
+    const payload = { username };
+    const token = jwt.sign(payload, secret, {
+      expiresIn: '3600'
+    });
+    resdata = {...data, token:token,expiresIn:expiresIn,nickname:nickname, hostsignup:data.hostsignup}; 
+    req.app.get('db').collection('LoginDetails').insertOne(data)
+    .then(function(result){
+      userdata.id = id;
+      userdata.nickname = nickname;
+      userdata.loginid = username;
+      userdata.email = username;    
+      req.app.get('db').collection('UserInfo').insertOne(userdata)
+      .then(function(result){
+        return res.json({success: true, data:resdata});      
       });
-      resdata = {...data, token:token,expiresIn:expiresIn,nickname:nickname, hostsignup:data.hostsignup}; 
-      // console.log('after save resdata',resdata);
-      // return res.json({ success: true, data:resdata }); //dont want to return early.
-      }//end of else
-    } //
-  );//end of logininfo save
-  userdata.id = id;
-  userdata.nickname = nickname;
-  userdata.loginid = username;
-  userdata.email = username;
-  userdata.save(err => {
-    if (err) 
-      return res.json({ success: false, error: err });
-    else{
-      // console.log('before user info save resdata',resdata);
-      return res.json({ success: true, data:resdata });
-      }//end of else
-    } //
-  );//end of userdata save
+    });
+  } catch(err){
+      console.log('in catch',err);
+      return res.json({success: false, error: err});
+  }
 });
 
 router.get("/sendemail",(req, res) => {

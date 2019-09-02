@@ -119,6 +119,7 @@ export const myProfile = (props) => {
             }
         })
         .then(response => {
+            console.log('myProfile then response',response);
             if(response.data.success){
                 // console.log('response.data.data',response.data.data._doc.id);
                 // console.log('getProfile response.data',response.data);
@@ -127,7 +128,7 @@ export const myProfile = (props) => {
                 props.history.push('/myprofile');
             }
             else{
-                console.log('myProfile catch err 1',err);
+                // console.log('myProfile catch err 1',err);
                 props.history.push('/');
                 // dispatch(authFail(response.data.data.error));
             }

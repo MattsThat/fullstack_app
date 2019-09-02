@@ -53,6 +53,7 @@ handleBookAnEvent = (event) => {
 }
 
 handleClickMyProfile = (event) => {
+    // alert("called");
     this.props.onMyProfile(this.props);
 }
 
@@ -154,7 +155,7 @@ render(){
         </div>
         </nav>
         <div>
-            {this.props.hostsignup}
+        {this.props.hostsignup}
         </div>
         </div>  
     );//end of return

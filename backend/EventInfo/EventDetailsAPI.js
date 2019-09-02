@@ -86,7 +86,6 @@ router.get("/selectEventDetails", (req, res) => {
 //     })
 // };
 
-
 // this method adds new host and individual data in our database
 router.post("/putEventDetails", (req, res) => {
   const data = new EventDetails(req.body.params.update);
