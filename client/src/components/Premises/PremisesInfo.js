@@ -27,7 +27,7 @@ const SignupSchema = Yup.object().shape({
 });
 
 
-class MyHostProfile extends React.Component {
+class PremisesInfo extends React.Component {
 
   constructor(props){
     super(props);
@@ -137,50 +137,6 @@ class MyHostProfile extends React.Component {
               <input type="hidden" name="history" defaultValue={this.props.history}/>
               <div class="container justify-content-center">  
                 <div className="form-row">
-                    <div className="form-group col-md-6">
-                      <MyTextField
-                          id="firstname"
-                          placeholder="Owner First Name"
-                          defaultValue={firstname} 
-                          label="Owner First Name"
-                          onChange={handleChange} 
-                          onBlur={handleBlur}
-                      />
-                    </div> 
-                    <div className="form-group col-md-6">  
-                      <MyTextField
-                          id="lastname"
-                          placeholder="Owner Last Name"
-                          label="Owner Last Name"
-                          defaultValue={lastname} 
-                          onChange={handleChange} 
-                          onBlur={handleBlur}
-                      />
-                    </div>
-                  </div>
-                  <div className="form-row">
-                    <div className="form-group col-md-6"> 
-                      <MyTextField
-                          id="companyname"
-                          placeholder="Company Name"
-                          label="Company Name"
-                          defaultValue={companyname} 
-                          onChange={handleChange} 
-                          onBlur={handleBlur}
-                      />
-                    </div>
-                    <div className="form-group col-md-6">
-                      <MyTextField
-                          id="lineid"
-                          placeholder="LiNE ID"
-                          label="LiNE ID"
-                          defaultValue={lineid} 
-                          onChange={handleChange} 
-                          onBlur={handleBlur}
-                      />
-                    </div>
-                </div>
-                <div className="form-row">
                   <div className="form-group col-md-6"> 
                     <MyTextArea
                       id="address"
@@ -192,16 +148,50 @@ class MyHostProfile extends React.Component {
                       onBlur={handleBlur}
                     />
                   </div>
-                  <div className="form-group col-md-6">
-                      <MyTextField
-                          id="email"
-                          placeholder="Email ID"
-                          label="Email ID"
-                          defaultValue={lineid} 
-                          onChange={handleChange} 
-                          onBlur={handleBlur}
-                      />
-                    </div>
+                  <div className="form-group col-md-6"> 
+                    <MyTextArea
+                      id="accessdetails"
+                      placeholder="Access Details"
+                      label="Access Details"
+                      defaultValue={accessdetails} 
+                      onChange={handleChange} 
+                      onBlur={handleBlur}
+                    />
+                  </div>
+                </div>
+                <div className="form-row">
+                  <div className="form-group col-md-12"> 
+                    <MySwitch
+                        id="parking"
+                        label="Parking"
+                        onChange={handleChange} 
+                        onBlur={handleBlur}
+                    />
+                    <MySwitch
+                        id="shower"
+                        label="Shower"
+                        onChange={handleChange} 
+                        onBlur={handleBlur}
+                    />
+                    <MySwitch
+                        id="clubhouse"
+                        label="Club House"
+                        onChange={handleChange} 
+                        onBlur={handleBlur}
+                    />
+                    <MySwitch
+                        id="food"
+                        label="Food"
+                        onChange={handleChange} 
+                        onBlur={handleBlur}
+                    />
+                    <MySwitch
+                        id="sportshop"
+                        label="Sports Shop"
+                        onChange={handleChange} 
+                        onBlur={handleBlur}
+                    />
+                  </div>
                 </div>
                 <div className="form-row">
                     <button type="button" className="outline" onClick={handleReset} disabled={!dirty || isSubmitting}>
@@ -234,4 +224,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default withRouter(connect(mapStateToProps,mapDispatchToProps)(MyHostProfile));
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(PremisesInfo));

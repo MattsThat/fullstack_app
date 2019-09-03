@@ -31,7 +31,7 @@ router.post("/updateEventDetails", (req, res) => {
 //   console.log('req.body update data',req.body.params.update);
   const id = req.body.params.update.id;
   const update = req.body.params.update;
-  EventDetails.findOneAndUpdate(id, update, err => {
+  EventDetails.findOneAndUpdate({'id':id}, update, err => {
     if (err){
         console.log('findOneAndUpdate err ',err);
         return res.json({ success: false, error: err });
@@ -46,7 +46,7 @@ router.post("/updateEventDetails", (req, res) => {
 // this method removes existing data in our database
 router.delete("/deleteEventDetails", (req, res) => {
   const { id } = req.body;
-  EventDetails.findOneAndDelete(id, err => {
+  EventDetails.findOneAndDelete({'id':id}, err => {
     if (err) return res.send(err);
     return res.json({ success: true });
   });

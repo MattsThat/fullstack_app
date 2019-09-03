@@ -239,7 +239,7 @@ class BookAnEvent extends React.Component {
                     <button type="button" className="outline" onClick={handleReset} disabled={!dirty || isSubmitting}>
                       Reset
                     </button>
-                    <button type="submit" disabled={isSubmitting}>Submit</button>
+                    <button type="submit" disabled={!dirty || isSubmitting}>Submit</button>
                 </div>
               </div>  
             </Form>

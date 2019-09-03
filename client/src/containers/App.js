@@ -6,6 +6,7 @@ import InvalidLogin from '../components/Login/InvalidLogin';
 import Dashboard from '../components/Dashboard/Dashboard';
 import MyProfile from '../components/Profile/MyProfile';
 import MyHostProfile from '../components/Profile/MyHostProfile';
+import Premises from '../components/Premises/PremisesInfo';
 import BookAnEvent from '../components/Events/BookAnEvent';
 import { Route } from 'react-router-dom';
 import Layout from '../components/Layout/Layout';
@@ -24,11 +25,13 @@ class App extends React.Component{
             <Layout>  
               <Route  exact path='/' component={Home}/>
               <Route  exact path='/signup' component={Login}/>
-              <Route  exact path='/hostprofile' component={MyHostProfile}/>
+              {/* <Route  exact path='/hostprofile' component={Premises}/> */}
               <Route  exact path='/invalidlogin' exact component={InvalidLogin}/>
               <Route  exact path='/dashboard' component={Dashboard}/>
-              <Route  exact path='/myprofile' component={MyProfile}/> 
-              <Route  exact path='/bookAnEvent' component={BookAnEvent}/> 
+              <Route  exact path='/myprofile' component={MyProfile}/>
+              <Route  exact path='/myhostprofile' component={MyHostProfile}/>  
+              <Route  exact path='/bookAnEvent' component={BookAnEvent}/>
+              <Route  exact path='/centerdetails' component={Premises}/>  
             </Layout>             
             </div>
       );//end of return

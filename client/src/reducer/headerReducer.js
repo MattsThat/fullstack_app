@@ -44,7 +44,13 @@ const headerReducer = (state=initialState, action) => {
                 token: action.token
              });            
         case actionTypes.MY_PROFILE:
-        console.log("MY_PROFILE in reducer",action.profiledata)
+            console.log("MY_PROFILE in reducer",action.profiledata)
+            return updateObject( state, {
+                token:  action.token,
+                profiledata : action.profiledata
+            });
+        case actionTypes.MY_HOST_PROFILE:
+            console.log("MY_HOST_PROFILE in reducer",action.profiledata)
             return updateObject( state, {
                 token:  action.token,
                 profiledata : action.profiledata

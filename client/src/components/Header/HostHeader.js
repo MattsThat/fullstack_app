@@ -48,13 +48,13 @@ handleBookAPlace = (event) => {
 handleGoToHome = (event) =>{
     this.props.onGoToHome(this.props);
 }
-handleBookAnEvent = (event) => {
-    this.props.onBookAnEvent(this.props);
+handleNewPremises = (event) => {
+    this.props.onNewPremises(this.props);
 }
 
 handleClickMyProfile = (event) => {
     // alert("called");
-    this.props.onMyProfile(this.props);
+    this.props.onMyHostProfile(this.props);
 }
 
 handleClickLogout = (event) => {
@@ -120,11 +120,18 @@ render(){
           </form>
           {/* <ul class="navbar-nav ml-auto"> */}
           <ul class="nav nav-tabs ml-auto bg-primary">
-          <li class="nav-item dropdown">
+            <li class="nav-item dropdown">
               <Link class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onClick={this.handleToggle}>Your Courts</Link>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <Link class="dropdown-item" onClick={this.handleNewCourts}>New Court Register<span class="sr-only">(current)</span></Link>
                 <Link class="dropdown-item" onClick={this.handleExistingCourt}>Update Court Info<span class="sr-only">(current)</span></Link>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <Link class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onClick={this.handleToggle}>Your Premises</Link>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <Link class="dropdown-item" onClick={this.handleNewPremises}>New Premises Register<span class="sr-only">(current)</span></Link>
+                <Link class="dropdown-item" onClick={this.handleExistingPremises}>Update Premises Info<span class="sr-only">(current)</span></Link>
               </div>
             </li>
             <li class="nav-item dropdown">
@@ -174,10 +181,10 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return{
         onSearch: () => dispatch(actions.search()),
-        onBookAnEvent : (props) => dispatch(actions.bookAnEvent(props)),
+        onNewPremises : (props) => dispatch(actions.registerNewPremises(props)),
         onBookAPlace : (props) => dispatch(actions.bookAPlace(props)),
         onFriends : (props) => dispatch(actions.myFriends(props)),
-        onMyProfile : (props) => dispatch(actions.myProfile(props)),
+        onMyHostProfile : (props) => dispatch(actions.myHostProfile(props)),
         onGoToHome : (props) => dispatch(actions.goToHome(props)),
         onLogout : (props) => dispatch(actions.authLogout(props))
     };

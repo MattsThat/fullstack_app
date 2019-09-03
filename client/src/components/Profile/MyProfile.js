@@ -227,7 +227,6 @@ class MyProfile extends React.Component {
                     <button type="button" className="outline" onClick={handleReset} disabled={!dirty || isSubmitting}>
                       Reset
                     </button>
-                    {console.log('isSubmitting=',isSubmitting)}
                     <button type="submit" disabled={!dirty || isSubmitting}>Submit</button>
                     {/* <button type="submit" disabled={isSubmitting}>Submit</button> */}
                 </div>

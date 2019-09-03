@@ -141,6 +141,50 @@ export const myProfile = (props) => {
     };
 }
 
+export const myHostProfile = (props) => {
+    let id = null;
+    return dispatch => {
+        console.log('myHostProfile props',props)
+        axios.get(`/userinfo/selectUserInfo`,{
+            params:{
+                id: props.id,
+            },
+            method: 'GET',
+            credentials: 'same-origin',
+            body: JSON.stringify({id}),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            console.log('myHostProfile then response',response);
+            if(response.data.success){
+                // console.log('response.data.data',response.data.data._doc.id);
+                // console.log('getProfile response.data',response.data);
+                dispatch(loadMyProfile(response.data));
+                // props.history.push('/dashboard');
+                props.history.push('/myhostprofile');
+            }
+            else{
+                // console.log('myProfile catch err 1',err);
+                props.history.push('/');
+                // dispatch(authFail(response.data.data.error));
+            }
+        })
+        .catch(err => {
+            console.log('myProfile catch err 2',err);
+            props.history.push('/');
+            // dispatch(authFail(response.data.data.error));
+        });
+    };
+}
+
+export const registerNewPremises = () => {
+    return {
+        type: actionTypes.REGISTER_NEW_PREMISES,
+    };
+}
+
 export const goToHome = (props) => {
     props.history.push('/');
     return {
