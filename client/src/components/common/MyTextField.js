@@ -9,6 +9,7 @@ export const MyTextField = ({
   label,
   placeholder,
   defaultValue,
+  classtype,
   onChange,
   onBlur,
   touched,
@@ -20,7 +21,8 @@ export const MyTextField = ({
       <input
         type="text"
         margin="normal"
-        class="form-control" 
+        class={classtype} 
+        // class="form-control" 
         aria-label="Sizing example input" 
         aria-describedby="inputGroup-sizing-default"
         required

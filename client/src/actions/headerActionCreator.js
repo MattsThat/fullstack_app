@@ -33,6 +33,12 @@ export const putEventDetails = () => {
     };
 }
 
+export const putPremisesDetails = () => {
+    return {
+        type: actionTypes.PUT_PREMISES_DETAILS,
+    };
+}
+
 export const eventRegister =(props,values) =>{
     // console.log('on eventRegister props',props);
     // console.log('on eventRegister values',values);
@@ -179,10 +185,47 @@ export const myHostProfile = (props) => {
     };
 }
 
-export const registerNewPremises = () => {
+export const registerNewPremises = (props) => {
+    console.log('registerNewPremises',props);
+    props.history.push('/registerpremises');
     return {
-        type: actionTypes.REGISTER_NEW_PREMISES,
+        type: actionTypes.NEW_PREMISES,
     };
+}
+
+export const newPremisesRegister = (props,values) => {
+    // return {
+    //     // type: actionTypes.REGISTER_NEW_PREMISES,
+    // };
+    console.log('on newPremisesRegister props',props);
+    console.log('on newPremisesRegister values',values);
+    return dispatch => {
+        axios.post('/premisesdetails/putPremisesDetails',{
+            params:{
+                premisesdata:values
+            },
+            method: 'POST',
+            credentials: 'same-origin',
+            // body: JSON.stringify({id}),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }) //end of axios post
+        .then(response => {
+            if(response.data.success){
+                console.log('on newPremisesRegister response.data if',response.data);
+                dispatch(putPremisesDetails());
+                props.history.push('/dashboard');
+            }else{
+                console.log('on newPremisesRegister response.data else',response.data);
+                props.history.push('/');
+            }
+        })
+        .catch(err => {
+            console.log('newPremisesRegister catch err',err);
+            props.history.push('/');
+        });
+    } //end of dispatch
 }
 
 export const goToHome = (props) => {

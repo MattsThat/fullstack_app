@@ -18,6 +18,7 @@ export {
     myProfile,
     myHostProfile,
     registerNewPremises,
+    newPremisesRegister,
     eventRegister
 } from './headerActionCreator';
 

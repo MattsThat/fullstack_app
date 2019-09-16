@@ -31,7 +31,7 @@ class App extends React.Component{
               <Route  exact path='/myprofile' component={MyProfile}/>
               <Route  exact path='/myhostprofile' component={MyHostProfile}/>  
               <Route  exact path='/bookAnEvent' component={BookAnEvent}/>
-              <Route  exact path='/centerdetails' component={Premises}/>  
+              <Route  exact path='/registerpremises' component={Premises}/>  
             </Layout>             
             </div>
       );//end of return

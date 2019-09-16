@@ -71,8 +71,12 @@ router.get("/selectPremises", (req, res) => {
 });
 
 // this method adds new host and individual data in our database
-router.post("/putSportsCenterDetails", (req, res) => {
-  const data = new Premises(req.body.params.update);
+router.post("/putPremisesDetails", (req, res) => {
+  // console.log('id putPremisesDetails req',req);
+  // console.log('id putPremisesDetails req.params',req.body.params.premisesdata);
+  // console.log('id putPremisesDetails req.body',req.body);
+  const data = new Premises(req.body.params.premisesdata);
+  // console.log('id putPremisesDetails data',data);
   try{
     req.app.get('db').collection('Premises').insertOne(data)
     .then(function(result){

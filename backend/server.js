@@ -38,6 +38,7 @@ app.use("/api", router);
 router.use('/login', require('./LoginInfo/LoginAPI')); 
 router.use('/userinfo', require('./UserInfo/UserInfoAPI')); 
 router.use('/eventdetails', require('./EventInfo/EventDetailsAPI')); 
+router.use('/premisesdetails', require('./PremisesInfo/PremisesAPI')); 
 
 module.exports = router ;
 app.listen(API_PORT, () => console.log(`LISTENING ON PORT ${API_PORT}`));

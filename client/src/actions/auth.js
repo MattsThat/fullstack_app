@@ -11,6 +11,7 @@ export const authSuccess = (data) => {
     return {
         type: actionTypes.AUTH_SUCCESS,
         token: data.token,
+        username: data._doc.username,
         nickname : data.nickname,
         hostsignup : data.hostsignup,
         id: data._doc.id
@@ -71,6 +72,7 @@ export const register = (nickname,username,password,props) =>{
                     dispatch(authSuccess(response.data.data));
                     dispatch(checkAuthTimeout(response.data.data.expiresIn));
                     console.log('hostsignup',hostsignup);
+                    console.log('response.data.data',response.data.data);
                     if(hostsignup)
                         props.history.push('/hostprofile');
                     else
@@ -118,8 +120,8 @@ export const auth = (email,pwd,history) => {
                 const expirationDate = new Date(new Date().getTime() + response.data.data.expiresIn * 1000);
                 localStorage.setItem('token',response.data.data.token);
                 localStorage.setItem('expirationDate',expirationDate);
-                // console.log('response.data.data',response.data.data._doc.id);
-                // console.log('response.data._doc.nickname',response.data._doc.nickname);
+                console.log('response.data.data._doc)',response.data.data._doc);
+                console.log('response.data.data._doc.username',response.data.data._doc.username);
                 dispatch(authSuccess(response.data.data));
                 dispatch(checkAuthTimeout(response.data.data.expiresIn));
                 dispatch(modalClose());

@@ -2,7 +2,7 @@ import * as actionTypes from '../actions/loginActions';
 
 const initialState = {
     showModal : false,
-    hostsignup : false
+    hostsignup : false,
 }
 
 const loginReducer = (state=initialState, action) => {

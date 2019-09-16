@@ -7,6 +7,7 @@ const initialState = {
     recoverPasswordSuccessLabel: null,
     token: null,
     nickname : null,
+    username : null,
     id : null,
     isAuth : false,
     hostsignup : false,
@@ -21,6 +22,7 @@ const authSuccess = (state, action) => {
     return updateObject(state,{
         token: action.token,
         nickname : action.nickname,
+        username : action.username,
         hostsignup : action.hostsignup,
         id : action.id,
         error: null,
